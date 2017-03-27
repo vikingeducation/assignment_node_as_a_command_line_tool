@@ -17,7 +17,7 @@ process.stdin.setEncoding('utf8');
 var cp = require('child_process');
 var pkgjson = require('./package.json')
 var argVals = process.argv.splice(2)
-
+var currVal = 0;
 
 var inputFormat = function(input) {
   var input = input.split(" ");
@@ -27,28 +27,73 @@ var inputFormat = function(input) {
   return input;
 }
 
+var runCalc = function() {
+  for(i=3; i<argVals.length; i+=2) {
+    calcFuncs[argVals[i]](argVals[i+1])
+  }
+  console.log(currVal)
+}
+
+var info = {
+  "-v": console.log(pkgjson.version),
+  "--version": console.log(pkgjson.version),
+  "-h": console.log(pkgjson.help),
+  "--help": console.log(pkgjson.help)
+}
+
 var calcFuncs = {
+
   add: function(a, b) {
-    return parseInt(a) + parseInt(b)
+    if (b === undefined) {
+      currVal = parseInt(currVal) + parseInt(a)
+      return currVal
+    } else {
+      currVal = parseInt(a) + parseInt(b)
+      return currVal
+    }
   },
 
   sub: function(a, b) {
-    return parseInt(a) - parseInt(b)
-  },
-
-  div: function(a, b) {
-    return parseInt(a) / parseInt(b)
+    if (b === undefined) {
+      currVal = parseInt(currVal) - parseInt(a)
+      return currVal
+    } else {
+      currVal = parseInt(a) - parseInt(b)
+      return currVal
+    }
   },
 
   mult: function(a, b) {
-    return parseInt(a) * parseInt(b)
+    if (b === undefined) {
+      currVal = parseInt(currVal) * parseInt(a)
+      return currVal
+    } else {
+      currVal = parseInt(a) * parseInt(b)
+      return currVal
+    }
   },
+
+  div: function(a, b) {
+    if (b === undefined) {
+      currVal = parseInt(currVal) / parseInt(a)
+      return currVal
+    } else {
+      currVal = parseInt(a) / parseInt(b)
+      return currVal
+    }
+  }
 
 };
 
-result = calcFuncs[argVals[0]](argVals[1], argVals[2]);
-  
-  
+if (argVals.length === 1) {
+  console.log(info[argVals[0]])
+} else {
+  result = calcFuncs[argVals[0]](argVals[1], argVals[2]);
+  runCalc()
+}
+
+
+
 
 
 
