@@ -18,8 +18,8 @@ var funcType;
 var total = 0;
 
 process.stdin.on('data', (data) => {
-  data = data.trim().split(' ');
-
+  data = parseData(data);
+  //console.log(`Data is: ${data}`);
   for (var i = 0; i < data.length; i++) {
     if (typeof parseInt(data[i]) === 'number') {
       console.log('number!');
@@ -48,4 +48,20 @@ function sub(num, total) {
   total-= num;
   return total;
 }
+
+function parseData(data) {
+  data = data.trim().split(' ');
+
+  for (var i = 0; i < data.length; i++) {
+    if (typeof parseInt(data[i]) === 'number') {
+      console.log(parseInt(data[i]));
+
+      parseInt(data[i]);
+ 
+
+    }
+  }
+  console.log(data);
+  return data;
+};
 
