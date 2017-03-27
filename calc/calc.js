@@ -31,20 +31,28 @@ process.stdin.on('data', function(str) {
 
 
   else {
-    var input = str.split(" ");
-    var cmd = cp.spawn(input[0], input.slice(1,input.length));
-
-    cmd.stdout.on('data', function(data) {
-      console.log(`${data}`);
-    })
-
-    cmd.stderr.on('data', function(data) {
-      console.error(`Error: ${data}`);
-    })
+    inputFormat(str);
   }
 });
 
 
-// var inputFormat = function(input) {
+var inputFormat = function(input) {
+  var input = str.split(" ");
+  var command = input[0];
+  var args = input.slice(1);
+}
 
-// }
+    
+
+
+
+    // var input = str.split(" ");
+    // var cmd = cp.spawn(input[0], input.slice(1,input.length));
+
+    // cmd.stdout.on('data', function(data) {
+    //   console.log(`${data}`);
+    // })
+
+    // cmd.stderr.on('data', function(data) {
+    //   console.error(`Error: ${data}`);
+    // })
