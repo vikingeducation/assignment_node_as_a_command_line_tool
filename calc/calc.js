@@ -27,6 +27,20 @@ var inputFormat = function(input) {
   return input;
 }
 
+var runCalc = function() {
+  for(i=3; i<argVals.length; i+=2) {
+    calcFuncs[argVals[i]](argVals[i+1])
+  }
+  console.log(currVal) 
+}
+
+var info = {
+  "-v": console.log(pkgjson.version),
+  "--version": console.log(pkgjson.version),
+  "-h": console.log(pkgjson.help),
+  "--help": console.log(pkgjson.help)
+}
+
 var calcFuncs = {
 
   add: function(a, b) {
@@ -71,17 +85,12 @@ var calcFuncs = {
 
 };
 
-
-result = calcFuncs[argVals[0]](argVals[1], argVals[2]);
-
-var runCalc = function() {
-  for(i=3; i<argVals.length; i+=2) {
-    calcFuncs[argVals[i]](argVals[i+1])
-  }
-  console.log(currVal) 
+if (argVals.length === 1) {
+  console.log(info[argVals[0]])
+} else {
+  result = calcFuncs[argVals[0]](argVals[1], argVals[2]);
+  runCalc()
 }
-
-runCalc()
 
 
 
