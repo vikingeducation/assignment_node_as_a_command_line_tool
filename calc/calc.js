@@ -18,7 +18,7 @@ var cp = require('child_process');
 var pkgjson = require('./package.json')
 
 var inputFormat = function(input) {
-  var input = str.split(" ");
+  var input = input.split(" ");
   // var command = input[0];
   // var args = input.slice(1);
   console.log(input);
