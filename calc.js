@@ -1,21 +1,3 @@
-// If flag, use case statement
-// Otherwise run calculator
-
-// add 5 5 sub 3 mult 6
-
-// var result,
-// result = result of first operation;
-// while array.length {
-// 	var command = array.shift;
-// 	var number = array.shift;
-// 	result = command(result, number)
-// }
-
-// Split the statement into an array
-// Parse the array by checking if element is number
-// Perform operation on current statement
-
-
 const cmd = process.argv.slice(2);
 
 let debugMode = false;
@@ -77,34 +59,44 @@ function runCalculator(command) {
   return result;
 }
 
+function newCalculator(command){
+	let cmdCopy = command;
+	let result;
+	while (cmdCopy.length){
+		let numbers = [result];
+		result = nextOperation(cmdCopy, numbers);
+	}
+	return result;
+}
+
+function nextOperation(cmdCopy, numbers){
+	let operator = cmdCopy.shift();
+	while (!isNaN(cmdCopy[0]) {
+		numbers.push(cmdCopy.shift());
+	}
+	return calculate(operator, numbers);
+}
+
+
 function printDebug(operator, numOne, numTwo, result) {
   console.log(`${operator} ${numOne} ${numTwo} => ${result}`);
 }
 
-function calculate(operator, a, b){
+function calculate(operator, numbers){
 	switch (operator){
 		case "add":
-			return add(a, b);
+			return numbers[0] + numbers[1];
 		case "sub":
-			return sub(a, b);
+			return numbers[0] - numbers[1];
 		case "div":
-			return div(a, b);
+			return numbers[0] / numbers[1];
 		case "mult":
-			return mult(a, b);
+			return numbers[0] * numbers[1];
+		case "pow":
+			return Math.pow(numbers[0], numbers[1]);
+		case "sqrt":
+			return Math.sqrt(numbers[0])
 	}
-}
-
-function add(a, b){
-	return a + b;
-}
-function sub(a, b){
-	return a - b;
-}
-function div(a, b){
-	return a / b;
-}
-function mult(a, b){
-	return a * b;
 }
 
 
