@@ -28,6 +28,10 @@ var calculatorHandlers = {
     return a * b;
   },
 
+  pow: function(a, b){
+    return Math.pow(a, b);
+  },
+
   getCalculatorMethod: function(str, a, b){
     a = parseInt(a);
     b = parseInt(b);
@@ -44,6 +48,9 @@ var calculatorHandlers = {
       case 'div':
         return(this.div(a,b))
         break;
+      case 'pow':
+      return(this.pow(a,b));
+      break;
     }
   }
 }
