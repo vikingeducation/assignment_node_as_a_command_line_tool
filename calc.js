@@ -3,11 +3,12 @@
 
 // add 5 5 sub 3 mult 6
 
-// First element is the operation
+// var result,
+// result = result of first operation;
 // while array.length {
-// Save the operation to a var
-// Shift through the array until we find something thats not a number
-// Call operator func and save to var result
+// 	var command = array.shift;
+// 	var number = array.shift;
+// 	result = command(result, number)
 // }
 
 // Split the statement into an array
@@ -16,5 +17,62 @@
 
 
 let cmd = process.argv.slice(2);
+
+if (cmd[0][0] == "-") {
+	flagParser(cmd[0]);
+} else {
+	calculator(cmd);
+}
+
+
+function flagParser(command){
+	switch (command){
+		case "-v":
+		case "--version":
+			console.log("Version 1.0.0")
+			break;
+		case "-h":
+		case "--help":
+			showHelp();
+			break;
+	}
+}
+
+function showHelp(){
+	console.log("For a basic math operation type: <operator_type> <number1> <number2>");
+	console.log("You can chain operations the following way");
+	console.log("<operator_type> <number1> <number2> <operator2> <new_number>");
+	console.log("For information about the calculator use '-' with the following options:");
+	console.log("-h displays help info");
+	console.log("-v displays the version number");
+}
+
+function calculate(operator, a, b){
+	switch (operator){
+		case "add":
+			return add(a, b);
+		case "sub":
+			return sub(a, b);
+		case "div":
+			return div(a, b);
+		case "mult":
+			return mult(a, b);
+	}
+}
+
+function add(a, b){
+	return a + b;
+}
+function sub(a, b){
+	return a - b;
+}
+function div(a, b){
+	return a / b;
+}
+function mult(a, b){
+	return a * b;
+}
+
+
 
 
