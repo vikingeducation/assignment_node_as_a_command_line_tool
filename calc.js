@@ -36,50 +36,32 @@ function showHelp(){
 	console.log("-v displays the version number");
 }
 
-function runCalculator(command) {
-  let cmdCopy = command;
-
-  let firstOperator = cmdCopy.shift();
-  let firstNum = Number(cmdCopy.shift());
-  let secondNum = Number(cmdCopy.shift());
-
-  let result = calculate(firstOperator, firstNum, secondNum);
-
-  if (debugMode) printDebug(firstOperator, firstNum, secondNum, result);
-
-  while (cmdCopy.length) {
-    let operator = cmdCopy.shift();
-    let num = Number(cmdCopy.shift());
-    let prevResult = result;
-    result = calculate(operator, result, num);
-
-    if (debugMode) printDebug(operator, prevResult, num, result);
-  }
-
-  return result;
-}
-
-function newCalculator(command){
+function runCalculator(command){
 	let cmdCopy = command;
 	let result;
 	while (cmdCopy.length){
-		let numbers = [result];
-		result = nextOperation(cmdCopy, numbers);
+		result = nextOperation(result, cmdCopy);
 	}
 	return result;
 }
 
-function nextOperation(cmdCopy, numbers){
+function nextOperation(result, cmdCopy){
+  let numbers = [];
+  if (result) numbers.push(result);
 	let operator = cmdCopy.shift();
-	while (!isNaN(cmdCopy[0]) {
-		numbers.push(cmdCopy.shift());
+	while (!isNaN(cmdCopy[0])) {
+		numbers.push(Number(cmdCopy.shift()));
 	}
-	return calculate(operator, numbers);
+  let newResult = calculate(operator, numbers);
+
+  if (debugMode) printDebug(operator, numbers, newResult);
+
+  return newResult;
 }
 
 
-function printDebug(operator, numOne, numTwo, result) {
-  console.log(`${operator} ${numOne} ${numTwo} => ${result}`);
+function printDebug(operator, numbers, result) {
+  console.log(`${operator} ${numbers.join(" ")} => ${result}`);
 }
 
 function calculate(operator, numbers){
