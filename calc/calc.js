@@ -16,42 +16,40 @@ process.stdin.setEncoding('utf8');
 
 var cp = require('child_process');
 var pkgjson = require('./package.json')
+var argVals = process.argv.splice(2)
+
 
 var inputFormat = function(input) {
-  var input = str.split(" ");
+  var input = input.split(" ");
   // var command = input[0];
   // var args = input.slice(1);
-  console.log(input);
+  // console.log(input);
   return input;
 }
 
+var calcFuncs = {
+  add: function(a, b) {
+    return parseInt(a) + parseInt(b)
+  },
+
+  sub: function(a, b) {
+    return parseInt(a) - parseInt(b)
+  },
+
+  div: function(a, b) {
+    return parseInt(a) / parseInt(b)
+  },
+
+  mult: function(a, b) {
+    return parseInt(a) * parseInt(b)
+  },
+
+};
+
+console.log(calcFuncs[argVals[0]](argVals[1], argVals[2]));
 
 
-process.stdin.on('data', function(str) {
-  str = str.trim();
 
-  // call object keys if there are a lot of if/elses
-  if (str === 'q' || str === 'quit') {
-    process.exit();
-  } else if (str === '-v' || str === '--version') {
-    console.log(pkgjson.version)
-  } else if (str === '-h' || str === '--help') {
-    console.log(pkgjson.help)
-  }
-
-  else {
-    // var formattedInput = inputFormat(str);
-    // console.log();
-    inputFormat(str);
-    //console.log(input);
-
-    //Perform calculator functions
-  }
-});
-
-// var add = function(a, b) {
-//   return a + b;
-// }
 
 
 
@@ -67,3 +65,25 @@ process.stdin.on('data', function(str) {
     // cmd.stderr.on('data', function(data) {
     //   console.error(`Error: ${data}`);
     // })
+
+// process.stdin.on('data', function(str) {
+//   str = str.trim();
+
+//   // call object keys if there are a lot of if/elses
+//   if (str === 'q' || str === 'quit') {
+//     process.exit();
+//   } else if (str === '-v' || str === '--version') {
+//     console.log(pkgjson.version)
+//   } else if (str === '-h' || str === '--help') {
+//     console.log(pkgjson.help)
+//   }
+
+//   else {
+//     var input = inputFormat(str)
+//     console.log(input)
+//     if (input[0] === 'add') {
+//       console.log(add(input[1], input[2]));
+
+//     }
+//   }
+// });
