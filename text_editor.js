@@ -11,7 +11,6 @@ process.stdin.on('data', function(str){
        if(err) {
          console.log(err);
       }
-      console.log("Lates!");
       process.exit();
     });
 	}

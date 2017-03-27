@@ -5,14 +5,31 @@ process.stdin.setEncoding('utf8');
 
 process.stdin.on('data', (data) => {
   data = data.trim();
-  var parsedData = parseData(data);
+  
+  if(data === 'q' || data === 'quit') {
+  	process.exit();
+  } else {
+  	var parsedData = parseData(data);
+  	var cmd = cp.spawn(parsedData.command, parsedData.params);
+  	
+  	cmd.stdout.on('data', (data) => {
+	  console.log('data: ' + data);
+	});
+  	cmd.on('error', (err) => {
+	  console.error('error: ' + err);
+	});
+  }
 });
 
-function parseData(data) {
+var parseData = function(data) {
   var myArr = data.split(' ');
-  var cmd = myArr[0];
+  var command = myArr[0];
   var params = myArr.slice(1);
-  console.log(cmd, params)
+
+  return {
+  	command: command,
+  	params: params
+  };
 }
 
 
