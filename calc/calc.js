@@ -29,26 +29,50 @@ var inputFormat = function(input) {
 
 var calcFuncs = {
   add: function(a, b) {
-    return parseInt(a) + parseInt(b)
+    if (b === undefined) {
+      return parseInt(a) + //
+    } else {
+      return parseInt(a) + parseInt(currVal)
+    }
   },
 
   sub: function(a, b) {
-    return parseInt(a) - parseInt(b)
-  },
-
-  div: function(a, b) {
-    return parseInt(a) / parseInt(b)
+    if (b === undefined) {
+      return parseInt(a) - //
+    } else {
+      return parseInt(a) - parseInt(currVal)
+    }
   },
 
   mult: function(a, b) {
-    return parseInt(a) * parseInt(b)
+    if (b === undefined) {
+      return parseInt(a) * //
+    } else {
+      return parseInt(a) * parseInt(currVal)
+    }
+  },
+
+  div: function(a, b) {
+    if (b === undefined) {
+      return parseInt(a) / //
+    } else {
+      return parseInt(a) / parseInt(currVal)
+    }
   },
 
 };
 
 result = calcFuncs[argVals[0]](argVals[1], argVals[2]);
+
+  if (!argVals[3] === undefined) {
+    for (i=3; i<argVals; i++) {
+      for (k=(i+1); k<=argVals; k++) {
+        calcFuncs[argVals[i](argVals[k])
+      }
+    }
+  }
   
-  
+
 
 
 
