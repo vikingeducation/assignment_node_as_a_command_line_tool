@@ -10,13 +10,13 @@
 //print enter lorem ipsom
 //else if(add)
 //
-const calcInfoArr = ["-v", "--version", "-h", "--help"];
-
-const calcOps = ["add", "sub", "mult", "div", "pow", "-d", "--debug"];
+//const calcInfoArr = ["-v", "--version", "-h", "--help"];
+const calcOps = ["add", "sub", "mult", "div", "pow"];
+const specialOps = ["sqrt", "abs", "ln", "log", "sin", "cos", "tan"];
 var inputArr = process.argv;
 var debugFlag = false;
 var result = 0;
-
+var start = 0;
 // if (inputArr[2] === "-v" || inputArr[2] === "--version") {
 //   console.log("Calculator version is: 1.0.0");
 // } else if (inputArr[2] === "-h" || inputArr[2] === "--help") {
@@ -26,15 +26,29 @@ var result = 0;
 // } else
 initialCheck(inputArr[2]);
 function runCalc() {
-  if (!calcOps.includes(inputArr[2])) {
+  if (!calcOps.includes(inputArr[2]) && !specialOps.includes(inputArr[2])) {
     console.log("Invalid input");
-  } else {
-    result = doCalc(inputArr[2], inputArr[3], inputArr[4]);
-    if (debugFlag) {
-      console.log(`${inputArr[2]} ${inputArr[3]} ${inputArr[4]} => ${result}`);
+  }
+  else {
+    if(specialOps.includes(inputArr[2])){
+      result = doSpecialCalc(inputArr[2], inputArr[3]);
+      start = 4;
+      if (debugFlag) {
+        console.log(`${inputArr[2]} ${inputArr[3]} => ${result}`);
+      }
     }
-    for (var i = 5; i < inputArr.length; i += 2) {
-      if (!calcOps.includes(inputArr[i]) || isNaN(inputArr[i + 1])) {
+    else {
+      result = doCalc(inputArr[2], inputArr[3], inputArr[4]);
+      start = 5;
+      if (debugFlag) {
+        console.log(`${inputArr[2]} ${inputArr[3]} ${inputArr[4]} => ${result}`);
+      }
+    }
+      // if (debugFlag) {
+      //   console.log(`${inputArr[2]} ${inputArr[3]} ${inputArr[4]} => ${result}`);
+      // }
+    for (var i = start; i < inputArr.length; i += 2) {
+      if ((!calcOps.includes(inputArr[i]) && !specialOps.includes(inputArr[i])) || isNaN(inputArr[i + 1])) {
         result = "Invalid Input";
         break;
       }
@@ -88,6 +102,7 @@ function initialCheck(input) {
     case "-d":
     case "--debug":
       debugFlag = true;
+      inputArr.splice(2,1); // removing "-d" or "--debug" from the inputArr
     default:
       runCalc();
   }
@@ -107,5 +122,25 @@ function doCalc(op, val1, val2) {
       return val1 / val2;
     case "pow":
       return Math.pow(val1, val2);
+  }
+}
+
+function doSpecialCalc(op, val) {
+  val = parseInt(val);
+  switch (op) {
+    case "sqrt":
+      return Math.sqrt(val);
+    case "abs":
+      return Math.abs(val);
+    case "ln":
+      return Math.log(val);
+    case "log":
+      return Math.log10(val);
+    case "sin":
+      return Math.sin(val);
+    case "cos":
+      return Math.cos(val);
+    case "tan":
+      return Math.tan(val);
   }
 }
