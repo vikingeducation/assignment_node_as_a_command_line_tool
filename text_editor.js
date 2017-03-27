@@ -5,7 +5,7 @@ process.stdin.resume();
 process.stdin.setEncoding('utf8');
 
 process.stdin.on('data', function(str) {
-  
+
 
   if (str.trim() === '\\q') {
 
@@ -15,7 +15,7 @@ process.stdin.on('data', function(str) {
       console.log('Goodbye');
       process.exit();
     });
-    
+
   } else {
     user_input += str;
   }
