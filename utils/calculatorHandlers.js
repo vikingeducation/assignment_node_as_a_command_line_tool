@@ -32,9 +32,13 @@ var calculatorHandlers = {
     return Math.pow(a, b);
   },
 
+  sqrt: function(a) {
+    return Math.sqrt(a);
+  },
+
   getCalculatorMethod: function(str, a, b){
-    a = parseInt(a);
-    b = parseInt(b);
+    a = parseFloat(a);
+    b = parseFloat(b);
     switch(str){
       case 'add':
         return(this.add(a,b))
@@ -50,6 +54,9 @@ var calculatorHandlers = {
         break;
       case 'pow':
       return(this.pow(a,b));
+      break;
+      case 'sqrt':
+      return(this.sqrt(a));
       break;
     }
   }

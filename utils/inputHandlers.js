@@ -2,7 +2,7 @@ var calculatorHandlers = require('./calculatorHandlers');
 
 var inputHandlers = {
   parseInput: function (input, debugMode, callback) {
-    var commands = ['add', 'sub', 'div', 'mult', 'pow'];
+    var commands = ['add', 'sub', 'div', 'mult', 'pow', 'sqrt'];
     var result = calculatorHandlers.getCalculatorMethod(input[0], input[1], input[2]);
     if (debugMode) {
       console.log(input[0] + ' ' + input[1] + ' ' + input[2] + ' => ' + result);
