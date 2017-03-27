@@ -11,33 +11,86 @@
 //else if(add)
 //
 const calcInfoArr = ["-v", "--version", "-h", "--help"];
-const calcOps = ["add", "sub", "mult", "div"];
+
+const calcOps = ["add", "sub", "mult", "div", "pow", "-d", "--debug"];
 var inputArr = process.argv;
+var debugFlag = false;
 var result = 0;
 
-if (inputArr[2] === "-v" || inputArr[2] === "--version") {
-  console.log("Calculator version is: 1.0.0");
-}
-else if (inputArr[2] === "-h" || inputArr[2] === "--help") {
-  console.log(
-    "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-  );
-}
-else if (!calcOps.includes(inputArr[2])) {
-  console.log("Invalid input");
-}
-else {
-  result = doCalc(inputArr[2], inputArr[3], inputArr[4]);
-  for (var i = 5; i < inputArr.length; i+=2) {
-    if (!calcOps.includes(inputArr[i]) || isNaN(inputArr[i+1])) {
-      result = "Invalid Input";
-      break;
+// if (inputArr[2] === "-v" || inputArr[2] === "--version") {
+//   console.log("Calculator version is: 1.0.0");
+// } else if (inputArr[2] === "-h" || inputArr[2] === "--help") {
+//   console.log(
+//     "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+//   );
+// } else
+initialCheck(inputArr[2]);
+function runCalc() {
+  if (!calcOps.includes(inputArr[2])) {
+    console.log("Invalid input");
+  } else {
+    result = doCalc(inputArr[2], inputArr[3], inputArr[4]);
+    if (debugFlag) {
+      console.log(`${inputArr[2]} ${inputArr[3]} ${inputArr[4]} => ${result}`);
     }
-
-    result = doCalc(inputArr[i], result, inputArr[i+1]);
-    //console.log(result);
+    for (var i = 5; i < inputArr.length; i += 2) {
+      if (!calcOps.includes(inputArr[i]) || isNaN(inputArr[i + 1])) {
+        result = "Invalid Input";
+        break;
+      }
+      var tempResult = result;
+      result = doCalc(inputArr[i], result, inputArr[i + 1]);
+      if (debugFlag) {
+        console.log(
+          `${inputArr[i]} ${tempResult} ${inputArr[i + 1]} => ${result}`
+        );
+      }
+    }
+    console.log("Calculator output is: " + result);
   }
-  console.log("Calculator output is: " + result);
+}
+
+// if (!calcOps.includes(inputArr[2])) {
+//   console.log("Invalid input");
+// } else {
+//   result = doCalc(inputArr[2], inputArr[3], inputArr[4]);
+//   if (debugFlag) {
+//     console.log(`${inputArr[2]} ${inputArr[3]} ${inputArr[4]} => ${result}`);
+//   }
+//   for (var i = 5; i < inputArr.length; i += 2) {
+//     if (!calcOps.includes(inputArr[i]) || isNaN(inputArr[i + 1])) {
+//       result = "Invalid Input";
+//       break;
+//     }
+//     var tempResult = result;
+//     result = doCalc(inputArr[i], result, inputArr[i + 1]);
+//     if (debugFlag) {
+//       console.log(
+//         `${inputArr[i]} ${tempResult} ${inputArr[i + 1]} => ${result}`
+//       );
+//     }
+//   }
+//   console.log("Calculator output is: " + result);
+// }
+
+function initialCheck(input) {
+  switch (input) {
+    case "-v":
+    case "--version":
+      console.log("Calculator version is: 1.0.0");
+      break;
+    case "-h":
+    case "--help":
+      console.log(
+        "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      );
+      break;
+    case "-d":
+    case "--debug":
+      debugFlag = true;
+    default:
+      runCalc();
+  }
 }
 
 function doCalc(op, val1, val2) {
@@ -52,5 +105,7 @@ function doCalc(op, val1, val2) {
       return val1 * val2;
     case "div":
       return val1 / val2;
+    case "pow":
+      return Math.pow(val1, val2);
   }
 }
