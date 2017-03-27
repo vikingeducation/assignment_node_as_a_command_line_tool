@@ -1,3 +1,4 @@
+
 var calculatorHandlers = require('./utils/calculatorHandlers');
 var inputHandlers = require('./utils/inputHandlers');
 
@@ -18,22 +19,12 @@ if  (process.argv[2] === '-i' || process.argv[2] === '--interactive'){
       if (input.length < 3){
         input = [input[0], result, input[1]]
       }
-      console.log(input)
       inputHandlers.parseInput(input, debugMode, function(res){
-        console.log(res)
-        result = res
-        return res
+        result = res;
+        console.log(res);
       })
-
     }
-
   });
-
-
-
-
-
-
 
 } else {
 
@@ -50,14 +41,8 @@ if  (process.argv[2] === '-i' || process.argv[2] === '--interactive'){
     process.exit();
   });
 
-
-
   inputHandlers.parseInput(input, debugMode, function(result){
     console.log(result)
   });
 
 }
-
-
-
-
