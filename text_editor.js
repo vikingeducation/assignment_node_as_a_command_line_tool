@@ -17,8 +17,13 @@ process.stdin.on('data', function(str) {
   // If the user wishes to quit
   // exit the process
   if (str === '\\q') {
-
-    process.exit();
+    fs.writeFile(path, input, 'utf-8', (err) => {
+      if (err) {
+        throw err;
+      }
+      
+      process.exit();
+    })
 
   } else {
     // Else output the input
