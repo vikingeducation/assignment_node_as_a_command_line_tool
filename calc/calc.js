@@ -15,6 +15,7 @@ process.stdin.resume();
 process.stdin.setEncoding('utf8');
 
 var cp = require('child_process');
+var pkgjson = require('./package.json')
 
 process.stdin.on('data', function(str) {
   str = str.trim();
@@ -22,9 +23,9 @@ process.stdin.on('data', function(str) {
   if (str === 'q' || str === 'quit') {
     process.exit();
   } else if (str === '-v' || str === '--version') {
-    console.log('version num') //reference JSON
+    console.log(pkgjson.version) 
   } else if (str === '-h' || str === '--help') {
-    console.log('help') //reference and add to JSON
+    console.log(pkgjson.help)
   }
 
 
