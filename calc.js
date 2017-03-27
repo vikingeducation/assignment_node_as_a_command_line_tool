@@ -21,7 +21,7 @@ let cmd = process.argv.slice(2);
 if (cmd[0][0] == "-") {
 	flagParser(cmd[0]);
 } else {
-	calculator(cmd);
+	console.log(runCalculator(cmd));
 }
 
 
@@ -45,6 +45,21 @@ function showHelp(){
 	console.log("For information about the calculator use '-' with the following options:");
 	console.log("-h displays help info");
 	console.log("-v displays the version number");
+}
+
+function runCalculator(command) {
+  let firstOperator = command.shift();
+  let firstNum = Number(command.shift());
+  let secondNum = Number(command.shift());
+  let result = calculate(firstOperator, firstNum, secondNum);
+
+  while (command.length) {
+    let operator = command.shift();
+    let num = Number(command.shift());
+    result = calculate(operator, result, num);
+  }
+
+  return result;
 }
 
 function calculate(operator, a, b){
