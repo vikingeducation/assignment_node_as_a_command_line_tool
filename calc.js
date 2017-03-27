@@ -8,13 +8,16 @@ var input = process.argv.slice(2);
 // input[1] = parseInt(input[1]);
 // input[2] = parseInt(input[2]);
 var commands = ['add', 'sub', 'div', 'mult'];
+
 function parseInput(input) {
-  var result = [];
-  input.forEach(command) {
-    if (commands.includes(command)) {
-      
+  var result = calculatorHandlers.getCalculatorMethod(input[0], input[1], input[2]);
+
+  for (var i=3; i<input.length; i++){
+    if (commands.includes(input[i])){
+      result = calculatorHandlers.getCalculatorMethod(input[i], result, input[i+1])
     }
   }
+  console.log("Result: " + result);
 }
 
 var calculatorHandlers = {
@@ -47,28 +50,33 @@ var calculatorHandlers = {
 
   mult: function(a, b){
     return a * b;
+  },
+
+  getCalculatorMethod: function(str, a, b){
+    a = parseInt(a);
+    b = parseInt(b);
+    switch(str){
+      case 'add':
+        return(this.add(a,b))
+        break;
+      case 'sub':
+        return(this.sub(a,b))
+        break;
+      case 'mult':
+        return(this.mult(a,b))
+        break;
+      case 'div':
+        return(this.div(a,b))
+        break;
+    }
   }
 }
+
 
 if (calculatorHandlers.handleCalcInfo(input[0])) {
   console.log("Works!")
 } else {
-  switch (input[0]) {
-    case 'add':
-    console.log(calculatorHandlers.add(input[1], input[2]));
-    break;
-    case 'sub':
-    console.log(calculatorHandlers.sub(input[1], input[2]));
-    break;
-    case 'div':
-    console.log(calculatorHandlers.div(input[1], input[2]));
-    break;
-    case 'mult':
-    console.log(calculatorHandlers.mult(input[1], input[2]));
-    break;
-    default:
-    console.log("Invalid command");
-  }
-  process.exit();
+  parseInput(input)
 }
+process.exit();
 
