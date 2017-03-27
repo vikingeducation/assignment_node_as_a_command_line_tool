@@ -1,0 +1,51 @@
+var Calculator = require('../lib/Calculator');
+var calculator = new Calculator;
+
+var calculatorHandlers = {
+  handleCalcInfo: function(str, callback){
+    var version = /\-v|\-\-version/;
+    var help = /\-h|\-\-help/;
+    if (str.match(version)){
+      callback(calculator.version);
+    } else if (str.match(help)){
+      callback(calculator.help)
+    }
+  },
+
+  add: function(a, b){
+    return a + b;
+  },
+
+  sub: function(a, b){
+    return a - b;
+  },
+
+  div: function(a, b){
+    return a / b;
+  },
+
+  mult: function(a, b){
+    return a * b;
+  },
+
+  getCalculatorMethod: function(str, a, b){
+    a = parseInt(a);
+    b = parseInt(b);
+    switch(str){
+      case 'add':
+        return(this.add(a,b))
+        break;
+      case 'sub':
+        return(this.sub(a,b))
+        break;
+      case 'mult':
+        return(this.mult(a,b))
+        break;
+      case 'div':
+        return(this.div(a,b))
+        break;
+    }
+  }
+}
+
+module.exports = calculatorHandlers;
