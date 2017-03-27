@@ -9,13 +9,16 @@ process.stdin.on('data', (data) => {
     console.log('Goodbye!');
     process.exit();
   }
-  parsedInput = parseInput(data)
+  parsedInput = parseInput(data);
   spawnChildProcess(parsedInput.command, parsedInput.args);
-
 });
 
 function spawnChildProcess(command, args) {
   let cmd = cp.spawn(command, args);
+
+  cmd.on('error', (error) => {
+    console.error(`Error: ${error}`);
+  });
 
   cmd.stdout.on('data', (data) => {
   	console.log(`Data: ${data}`);
@@ -33,5 +36,5 @@ function parseInput(input) {
 	return {
 		command: command,
 		args: args
-	}
+	};
 }
