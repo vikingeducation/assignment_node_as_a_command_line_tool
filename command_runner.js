@@ -9,10 +9,29 @@ process.stdin.on('data', (data) => {
     console.log('Goodbye!');
     process.exit();
   }
-
+  parsedInput = parseInput(data)
+  spawnChildProcess(parsedInput.command, parsedInput.args);
 
 });
 
 function spawnChildProcess(command, args) {
   let cmd = cp.spawn(command, args);
+
+  cmd.stdout.on('data', (data) => {
+  	console.log(`Data: ${data}`);
+  });
+
+  cmd.stderr.on('data', (data) => {
+  	console.error(`Error: ${data}`);
+  });
+}
+
+function parseInput(input) {
+	let arr = input.split(" ");
+	let command = arr[0];
+	let args = arr.slice(1);
+	return {
+		command: command,
+		args: args
+	}
 }
