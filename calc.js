@@ -20,14 +20,19 @@ function flagParser(command){
 		case "--help":
 			showHelp();
 			break;
-    case "-d":
-    case "--debug":
-      debugMode = true;
-      console.log(runCalculator(cmd.slice(1)));
-    case "-i":
-    case "--interactive":
-      interactiveMode();
+	    case "-d":
+	    case "--debug":
+	    	debugMode = true;
+	    	console.log(runCalculator(cmd.slice(1)));
+	    	break
+	    case "-i":
+	    case "--interactive":
+	    	interactiveMode();
+	    	break;
+		default:
+			inputErrorFlag();
 	}
+
 }
 
 function showHelp(){
@@ -81,6 +86,8 @@ function calculate(operator, numbers){
 			return Math.pow(numbers[0], numbers[1]);
 		case "sqrt":
 			return Math.sqrt(numbers[0])
+		default:
+			inputErrorMath();
 	}
 }
 
@@ -104,6 +111,16 @@ function interactiveMode() {
   });
 }
 
+function inputErrorMath(){
+	console.log("That's not a valid operation");
+	console.log("To see valid operations run help mode with '-h'");
+	process.exit();
+}
 
+function inputErrorFlag(){
+	console.log("That's not a valid flag command");
+	console.log("To see valid flag commands run help mode with '-h'");
+	process.exit();
+}
 
 
