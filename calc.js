@@ -24,6 +24,9 @@ function flagParser(command){
     case "--debug":
       debugMode = true;
       console.log(runCalculator(cmd.slice(1)));
+    case "-i":
+    case "--interactive":
+      interactiveMode();
 	}
 }
 
@@ -79,6 +82,26 @@ function calculate(operator, numbers){
 		case "sqrt":
 			return Math.sqrt(numbers[0])
 	}
+}
+
+function interactiveMode() {
+  process.stdin.resume();
+  process.stdin.setEncoding('utf8');
+
+  let result;
+
+  process.stdin.on('data', (data) => {
+    let input = data.trim();
+    if (input === 'done') {
+      console.log('Goodbye!');
+      process.exit();
+    }
+
+    let cmd = input.split(" ");
+    result = nextOperation(result, cmd);
+    
+    console.log(result);
+  });
 }
 
 
