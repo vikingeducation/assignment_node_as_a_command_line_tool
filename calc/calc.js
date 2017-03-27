@@ -46,7 +46,9 @@ var calcFuncs = {
 
 };
 
-console.log(calcFuncs[argVals[0]](argVals[1], argVals[2]));
+result = calcFuncs[argVals[0]](argVals[1], argVals[2]);
+  
+  
 
 
 
