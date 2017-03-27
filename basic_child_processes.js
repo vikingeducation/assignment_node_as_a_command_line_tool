@@ -16,7 +16,7 @@ var cp = require('child_process');
 
 var cmd = cp.exec('ps aux', function(err, stdout, stderr) {
   if (err) {
-    throw err;
+    console.log(err);
   }
   if (stderr) {
     console.log(stderr);
