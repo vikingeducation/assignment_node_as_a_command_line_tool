@@ -16,7 +16,10 @@
 // Perform operation on current statement
 
 
-let cmd = process.argv.slice(2);
+const cmd = process.argv.slice(2);
+
+let debugMode = false;
+
 
 if (cmd[0][0] == "-") {
 	flagParser(cmd[0]);
@@ -35,6 +38,10 @@ function flagParser(command){
 		case "--help":
 			showHelp();
 			break;
+    case "-d":
+    case "--debug":
+      debugMode = true;
+      console.log(runCalculator(cmd.slice(1)));
 	}
 }
 
@@ -48,18 +55,30 @@ function showHelp(){
 }
 
 function runCalculator(command) {
-  let firstOperator = command.shift();
-  let firstNum = Number(command.shift());
-  let secondNum = Number(command.shift());
+  let cmdCopy = command;
+
+  let firstOperator = cmdCopy.shift();
+  let firstNum = Number(cmdCopy.shift());
+  let secondNum = Number(cmdCopy.shift());
+
   let result = calculate(firstOperator, firstNum, secondNum);
 
-  while (command.length) {
-    let operator = command.shift();
-    let num = Number(command.shift());
+  if (debugMode) printDebug(firstOperator, firstNum, secondNum, result);
+
+  while (cmdCopy.length) {
+    let operator = cmdCopy.shift();
+    let num = Number(cmdCopy.shift());
+    let prevResult = result;
     result = calculate(operator, result, num);
+
+    if (debugMode) printDebug(operator, prevResult, num, result);
   }
 
   return result;
+}
+
+function printDebug(operator, numOne, numTwo, result) {
+  console.log(`${operator} ${numOne} ${numTwo} => ${result}`);
 }
 
 function calculate(operator, a, b){
