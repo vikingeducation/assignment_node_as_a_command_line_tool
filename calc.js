@@ -5,37 +5,17 @@ var Calculator = require('./lib/Calculator');
 var calculator = new Calculator;
 
 var input = process.argv.slice(2);
-input[1] = parseInt(input[1]);
-input[2] = parseInt(input[2]);
-
-// process.stdin.on('data', function(str) {
-//   str = str.trim();
-//   if (calculatorHandlers.handleCalcInfo(str)) {
-//     process.exit();
-//   } else {
-//     var commands = []
-  // handle str if it's not -v or -h
-  // str looks something like "add 5 5"
-    
-
-
-  // }
-
-  // // push the commands and arguments to `commands` and then do something with them
-  //  commands = [
-  //  {'add': [1,2]},
-  //  {'add': [3,4]}
-  //  ]
-
-
-
-  // if (str === 'q' || str === 'quit') {
-  //   console.log('Goodbye');
-  //   process.exit();
-  // } else {
-  //   callFunction(str)
-  // }
-// })
+// input[1] = parseInt(input[1]);
+// input[2] = parseInt(input[2]);
+var commands = ['add', 'sub', 'div', 'mult'];
+function parseInput(input) {
+  var result = [];
+  input.forEach(command) {
+    if (commands.includes(command)) {
+      
+    }
+  }
+}
 
 var calculatorHandlers = {
   // refactor the returns here
