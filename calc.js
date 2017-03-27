@@ -1,6 +1,7 @@
 var calculatorHandlers = require('./utils/calculatorHandlers');
 var inputHandlers = require('./utils/inputHandlers');
 
+
 if (process.argv[2] === '-d' || process.argv[2] === '--debug') {
   var debugMode = true;
   var input = process.argv.slice(3);
@@ -10,7 +11,8 @@ if (process.argv[2] === '-d' || process.argv[2] === '--debug') {
 }
 
 
-calculatorHandlers.handleCalcInfo(input[0], function(f){
+
+calculatorHandlers.handleCalcInfo(input[0], input[1], function(f){
   console.log(f);
   process.exit();
 });

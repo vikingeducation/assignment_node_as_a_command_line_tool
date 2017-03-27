@@ -2,13 +2,15 @@ var Calculator = require('../lib/Calculator');
 var calculator = new Calculator;
 
 var calculatorHandlers = {
-  handleCalcInfo: function(str, callback){
+  handleCalcInfo: function(str, option, callback){
     var version = /\-v|\-\-version/;
     var help = /\-h|\-\-help/;
     if (str.match(version)){
       callback(calculator.version);
     } else if (str.match(help)){
-      callback(calculator.help)
+      callback(calculator.help.default)
+    } else if (option.match(help)) {
+      callback(calculator.help[str])
     }
   },
 
