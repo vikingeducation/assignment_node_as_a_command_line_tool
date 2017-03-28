@@ -1,32 +1,23 @@
-//How will you map user input to JavaScript functions?
-//  with stdin listener
-
-//How will you properly pass arguments to subcommands to the appropriate function?
-//
-
-//How will you enable subcommand chaining?
-
-//How will you allow options like -h and -v and their aliases --help and --version to output the correct information?
-
-
-process.stdin.resume();
-process.stdin.setEncoding('utf8');
-
-var cp = require('child_process');
 var pkgjson = require('./package.json')
 var argVals = process.argv.splice(2);
-var currVal = 0;
 
-var determineDebug = function() {
-  if (argVals[0] === '-d' || argVals[0] === '--debug') {
-    //argVals = process.argv.splice(1);
-    console.log("determineDebug ran")
-  }
+var info = {
+  "-v": pkgjson.version,
+  "--version": pkgjson.version,
+  "-h": pkgjson.help,
+  "--help": pkgjson.help
 }
 
-var inputFormat = function(input) {
-  var input = input.split(" ");
-  return input;
+//Global result value
+var currVal = 0;
+
+var calcLogic = function () {
+  if (argVals.length === 1) {
+    console.log(info[argVals[0]])
+  } else {
+    result = calcFuncs[argVals[0]](argVals[1], argVals[2]);
+    runCalc()
+  }
 }
 
 var runCalc = function() {
@@ -36,68 +27,47 @@ var runCalc = function() {
   console.log(currVal)
 }
 
-var info = {
-  "-v": pkgjson.version,
-  "--version": pkgjson.version,
-  "-h": pkgjson.help,
-  "--help": pkgjson.help
-}
-
 var calcFuncs = {
-
   add: function(a, b) {
-    if (b === undefined) {
-      currVal = parseInt(currVal) + parseInt(a)
-      return currVal
-    } else {
-      currVal = parseInt(a) + parseInt(b)
-      return currVal
-    }
+    doMath('add', a, b);
   },
 
   sub: function(a, b) {
-    if (b === undefined) {
-      currVal = parseInt(currVal) - parseInt(a)
-      return currVal
-    } else {
-      currVal = parseInt(a) - parseInt(b)
-      return currVal
-    }
+    doMath('sub', a, b);
   },
 
   mult: function(a, b) {
-    if (b === undefined) {
-      currVal = parseInt(currVal) * parseInt(a)
-      return currVal
-    } else {
-      currVal = parseInt(a) * parseInt(b)
-      return currVal
-    }
+    doMath('mult', a, b);
   },
 
   div: function(a, b) {
-    if (b === undefined) {
-      currVal = parseInt(currVal) / parseInt(a)
-      return currVal
-    } else {
-      currVal = parseInt(a) / parseInt(b)
-      return currVal
-    }
+    doMath('div', a, b);
   }
-
 };
 
-var calcLogic = function () {
-  determineDebug();
+var doMath = function (action, a, b) {
+  var result;
+  var firstVal = parseFloat(a);
+  var secondVal = parseFloat(b);
 
-  console.log(argVals);
+  if (b === undefined) {
+    firstVal = currVal;
+    secondVal = parseFloat(a);
+  }
 
-  if (argVals.length === 1) {
-    console.log(info[argVals[0]])
-  } else {
-    result = calcFuncs[argVals[0]](argVals[1], argVals[2]);
-    runCalc()
+  if (action === 'add') {
+    currVal = firstVal + secondVal;
+  }
+  else if (action === 'sub') {
+    currVal = firstVal - secondVal;
+  }
+  else if (action === 'mult') {
+    currVal = firstVal * secondVal;
+  }
+  else if (action === 'div') {
+    currVal = firstVal / secondVal;
   }
 }
 
+//Run the program
 calcLogic();
