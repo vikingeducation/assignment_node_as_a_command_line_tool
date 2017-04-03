@@ -36,17 +36,49 @@ if (regexFlags.test(cliArgs[0])) {
             break;
         default:
             console.log("That is not a valid flag");
-        
-        
-        
-        
-        
     }
 }
 
 //create regex to only match calculator functions
 let calcFunctionsRegex = new RegExp(/add|sub|mult|div/);
 if (calcFunctionsRegex.test(cliArgs[0])) {
+    //turn cliArgs into an array of grouped functions and values
+    let groups = [];
+    //Grab the first group
+    groups.push(cliArgs.splice(0,3));
+
+    while(cliArgs.length > 0) {
+        groups.push(cliArgs.splice(0,3));
+
+    }
+    let total = groups.reduce(function (acc, element) {
+        
+        let value = calculate(element);
+        return value += acc;
+    }, 0);
+    
+
+    console.log("The total was", total);
+    return total;
+}
+
+
+
+
+console.log(cliArgs);
+
+
+
+
+
+
+
+
+//aliasing will be done by referencing the same function
+
+
+
+function calculate(cliArgs) {
     let calcFunc = cliArgs[0];
     let value;
     let a = Number(cliArgs[1]);
@@ -69,20 +101,5 @@ if (calcFunctionsRegex.test(cliArgs[0])) {
             console.log("That is not a valid calc function");
         
     }
-    console.log("The value was", value);
     return value;
 }
-
-
-
-
-console.log(cliArgs);
-
-
-
-
-
-
-
-
-//aliasing will be done by referencing the same function
