@@ -42,8 +42,37 @@ if (regexFlags.test(cliArgs[0])) {
         
         
     }
-    
 }
+
+//create regex to only match calculator functions
+let calcFunctionsRegex = new RegExp(/add|sub|mult|div/);
+if (calcFunctionsRegex.test(cliArgs[0])) {
+    let calcFunc = cliArgs[0];
+    let value;
+    let a = Number(cliArgs[1]);
+    let b = Number(cliArgs[2]);
+    
+    switch (calcFunc) {
+        case "add":
+            value = a + b;
+            break;
+        case "sub":
+            value = a - b;
+            break;
+        case "div":
+            value = a / b;
+            break;
+        case "mult":
+            value = a * b;
+            break;
+        default:
+            console.log("That is not a valid calc function");
+        
+    }
+    console.log("The value was", value);
+    return value;
+}
+
 
 
 

@@ -16,6 +16,10 @@ process.stdin.on('data', function(str) {
     //Clean any leading or trailing whitespace
     str = str.trim();
     
+    //parse string into individual values. divide on spaces
+    
+    
+    
     //Check if the user wants to quit
     if (str == '\\q' || str == 'quit') {
         console.log("Exiting program. Good bye");
