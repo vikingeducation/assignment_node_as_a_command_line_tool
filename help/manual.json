@@ -1,0 +1,8 @@
+{
+    "add": "adds two numbers together",
+    "sub": "substracts two numbers together",
+    "mult": "multiplies two numbers together",
+    "div": "divides the first number by the second number",
+    "pow": "raises the first number to the power of the second",
+    "sqrt": "takes the squareroot of the number"
+}
