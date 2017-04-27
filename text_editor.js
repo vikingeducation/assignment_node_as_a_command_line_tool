@@ -16,15 +16,16 @@ process.stdin.on('data', function(str) {
       fs.mkdirSync('data')
     }
 
-    fs.appendFileSync('data/input.txt', buffer, (err) => {
+    fs.appendFile('data/input.txt', buffer, (err) => {
       if (err) {
         console.log(`Error: ${err}`);
         throw err;
       } else {
         console.log('The "data to append" was appended to file!');
+        process.exit();
       }
     });
-    process.exit();
+
   } else {
     // collect the input
     buffer = buffer.concat(str);
