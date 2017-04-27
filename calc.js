@@ -1,6 +1,8 @@
 
 
-let result = 0
+let result = 0;
+let firstCmd = 3;
+let debug = false;
 
 switch (process.argv[2]) {
   case '-h':
@@ -11,11 +13,18 @@ switch (process.argv[2]) {
   case '--version':
     console.log("Version 1.0.0");
     break;
+  case '-d':
+  case '--debug':
+    debug = true;
+    firstCmd += 1;
   default:
-    result = parseFloat(process.argv[3]);
-    result = doCalc(process.argv[2], process.argv[4]);
-    for (i = 5; i < process.argv.length; i += 2){
+    result = parseFloat(process.argv[firstCmd]);
+    if (debug) console.log(`${process.argv[firstCmd - 1]} ${result} ${process.argv[firstCmd + 1]}`);
+    doCalc(process.argv[firstCmd - 1], process.argv[firstCmd + 1]);
+    for (i = firstCmd + 2; i < process.argv.length; i += 2){
+      if (debug) console.log(`${process.argv[i]} ${result} ${process.argv[i + 1]}`);
       doCalc(process.argv[i], process.argv[i + 1])
+      if (process.argv[i] === 'sqrt') i--;
     }
 }
 
@@ -34,6 +43,12 @@ function doCalc(cmd, val) {
       break;
     case 'mult':
       return result *= parseFloat(val);
+      break;
+    case 'pow':
+      return result = Math.pow(result, parseFloat(val));
+      break;
+    case 'sqrt':
+      return result = Math.sqrt(result);
       break;
     default:
       return false
