@@ -10,10 +10,8 @@ process.stdin.on('data', function(str) {
     console.log("Exiting.");
     process.exit();
   } else {
-    console.log(str);
     fs.writeFile('./data/input.txt', str, (err) => {
       if (err) console.error(err);
     });
-
   }
-})
+});
