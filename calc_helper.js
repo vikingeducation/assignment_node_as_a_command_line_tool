@@ -1,14 +1,17 @@
 var calc_helper = {
+
   performCalculation: function(operation, number1, number2) {
+    var result = 0;
     if (operation === 'add') {
-      return this.add(parseInt(number1), parseInt(number2));
+      result = this.add(parseInt(number1), parseInt(number2));
     } else if (operation === 'sub') {
-      return this.subtract(parseInt(number1), parseInt(number2));
+      result = this.subtract(parseInt(number1), parseInt(number2));
     } else if (operation === 'div') {
-      return this.divide(parseInt(number1), parseInt(number2));
+      result = this.divide(parseInt(number1), parseInt(number2));
     } else if (operation === 'mult') {
-      return this.multiply(parseInt(number1), parseInt(number2));
-    } else return 0;
+      result = this.multiply(parseInt(number1), parseInt(number2));
+    }
+    return result;
   },
 
   add: function(number1, number2) {
