@@ -1,0 +1,23 @@
+{
+  "name": "assignment_node_as_a_command_line_tool",
+  "version": "1.0.0",
+  "description": "Working with standard I/O, processes and command-line arguments in Node",
+  "main": "calc.js",
+  "dependencies": {
+    "mathjs": "^3.13.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Malbaron0/assignment_node_as_a_command_line_tool.git"
+  },
+  "author": "Malyar Baron",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Malbaron0/assignment_node_as_a_command_line_tool/issues"
+  },
+  "homepage": "https://github.com/Malbaron0/assignment_node_as_a_command_line_tool#readme"
+}
