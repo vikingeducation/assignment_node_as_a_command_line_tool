@@ -1,4 +1,4 @@
-var fs = require('fs')
+var fs = require('fs');
 
 process.stdin.resume();
 process.stdin.setEncoding('utf8');
@@ -15,6 +15,6 @@ process.stdin.on('data', (data) => {
 });
 
 process.on('exit', () => {
-  output_string = input_array.join('\n')
-  fs.writeFileSync('message.txt', output_string)
+  output_string = input_array.join('\n');
+  fs.writeFileSync('message.txt', output_string);
 })
