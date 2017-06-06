@@ -4,7 +4,7 @@
   "description": "Working with standard I/O, processes and command-line arguments in Node",
   "main": "calc.js",
   "dependencies": {
-    "mathjs": "^3.13.1"
+    "mathjs": "^3.13.3"
   },
   "devDependencies": {},
   "scripts": {
