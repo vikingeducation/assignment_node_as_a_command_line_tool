@@ -7,7 +7,7 @@ Working with standard I/O, processes and command-line arguments in Node
 
 Simple command line calculator (using mathjs package) used as
 
-````
+```
 $ node calc.js add 5 5
 = 10
 $ node calc.js add 5 5 sub 3
