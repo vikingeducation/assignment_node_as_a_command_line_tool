@@ -32,7 +32,7 @@ $ node calc.js --help
   //add 5 5 sub 3 divide 2 ...... = args
   //['add 5 5', 'sub 3', 'divide 2']
   //args, take off first element = command
-    //run that grab the next 
+    //run that grab the next
   //
 
 //skip first command
@@ -41,26 +41,61 @@ $ node calc.js --help
 //findIndex => -1
 //take the stuff before it and add into command array
 //take is destructive
-}
 
 var args = process.argv.slice(2);
 var operations = ['add', 'sub', 'mult', 'div'];
+
 var interpret = (args) => {
   var result = 0
-  while args.length != 0 {
-    
-    switch (args[0]) {
-      case 'add': 
 
-        var out = args[1] + args[2]
+  //run operations
+  while (args.length != 0) {
+    //"add 3 3 sub 0 div 1" = arg syntax
+
+    command = args[0];
+    console.log(args);
+    /*var find = function(){
+      return
+    }
+    var next_command_index = args.forEach( function( element, index){
+      if ( element == operations)
+    })*/
+    //find our command arguments (the numbers )
+    var index = 0;
+    operations.forEach( function( element ){
+      var l = args.findIndex( element );
+      if ( l >= index ){
+        //do nothing 
+      }else {
+        index = l;
+      }
+    })
+
+
+    var nums = operations.sele
+    switch ( command ) {
+      case 'add':
+
+        //var out = args[1] + args[2]
+        result += //args[1] args[2]
+        break;
+      case 'sub':
+        var
+        break;
+      case 'mult':
+        //stuff
+        break;
+      case 'div':
+        //stuff
+        break;
+      default:
+        console.log('Error in switch!')
+    }
+    break;
+  }
+
 }
-}
-
-
-
-
-
-
+interpret( args );
 
 
 
