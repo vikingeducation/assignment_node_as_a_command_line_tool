@@ -1,6 +1,5 @@
 var fs = require('fs');
 
-
 process.stdin.resume();
 process.stdin.setEncoding("utf8");
 
