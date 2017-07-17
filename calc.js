@@ -49,27 +49,38 @@ var interpret = (args) => {
   var result = 0
 
   //run operations
-  while (args.length != 0) {
+  while ( args.length != 0 ) {
     //"add 3 3 sub 0 div 1" = arg syntax
-
     var command = args[0];
     args.shift();
 
     //find our command arguments (the numbers )
-    var index = 0; //index of next command
+    var index = -1; //index of next command
+    var numbers;
     for (var i = 0; i < args.length; i++) {
       if ( operations.includes( args[i] ) ){
         //found the next command
         index = i;
+
+        //grab our numbers for the next command
+        numbers = args.slice( 0, index);
+        args = args.splice(0, index);
+        debugger;
         break;
       }
     }
-    var numbers = args.slice( 0, index);
-    args = args.splice(0, index);
+    if ( index == -1 ){
+      //if no other commands left
+      numbers = args;
+      args = '';
+    }
+
+    numbers = numbers.map( function( element ){
+      return Number( element );
+    })
 
     switch ( command ) {
       case 'add':
-
         //var out = args[1] + args[2]
         result += numbers.reduce(function(sum, value) {
           return sum + value;
@@ -93,7 +104,7 @@ var interpret = (args) => {
       default:
         console.log('Error in switch!')
     }
-    //break;
+    console.log( result );
   }
 
 }
@@ -128,4 +139,3 @@ interpret( args );
 
 
 //
-
