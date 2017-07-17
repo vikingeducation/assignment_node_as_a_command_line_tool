@@ -16,8 +16,26 @@ Commit!*/
 
 
 const cp = require('child_process');
-var aux_args = process.argv.slice(2);
-var cmd = cp.spawn('ps', [ aux_args ]);
+
+//var aux_args = process.argv.slice(2); //this doesn't work, it 
+
+//grab our command arguments
+var aux_args = process.argv;
+aux_args.splice(0, 2);
+debugger;
+
+var cmd = cp.spawn('ps', aux_args )
+//spawn sytnax takes, args as a list of strings
+//var cmd = cp.spawn('echo', aux_args );
+
+/*
+if ( aux_args.length === 0 ){
+  cmd = cp.spawn('echo', 'things');
+}else{
+  cmd = cp.spawn('echo', aux_args );
+}*/
+
+
 
 cmd.stderr.on('data', (error) => {
   console.log( error );
@@ -25,7 +43,8 @@ cmd.stderr.on('data', (error) => {
 })
 
 cmd.stdout.on('data', (data) => {
-  console.log(data);
+  //console.log( data );    //this just spits out the stream data
+  console.log(`data = ${data}`);    //this actually converts it to a string
   debugger;
 })
 

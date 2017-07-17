@@ -26,6 +26,7 @@ process.stdin.on('data', str => {
       console.log('The "data to append" was appended to file!');
       process.exit();
     })
+
   } else {
     log += str.trim() + "\n";
   }
