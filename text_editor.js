@@ -6,10 +6,9 @@ process.stdin.setEncoding("utf8");
 var userData = "";
 
 process.stdin.on("data", function(data) {
-	if (data === '\\q\n') {
-
+	if (data === "\\q\n") {
 		console.log(userData);
-		
+
 		fs.writeFile("./data/input.txt", userData, "utf8", function(err) {
 			if (err) throw err;
 		});
