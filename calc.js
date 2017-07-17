@@ -4,14 +4,27 @@ const calc = {
   _version: 1.0,
   _helpString:
     'Usage: node calc.js <cmd> <value> <value> [<cmd> <value>...]' +
-    '\nAvailable commands:\n--version (-v) --help (-h) add sub mult div',
+    '\nAvailable commands:\n' +
+    '--version (-v), --help (-h), add, sub, mult, div, pow, sqrt',
   debug: false,
+
   add: (left, right) => left + right,
+  addHelp: 'Usage: add <number> <number> ...[add <number>]...',
+
   sub: (left, right) => left - right,
+  subHelp: 'Usage: sub <number> <number> ...[sub <number>]...',
+
   mult: (left, right) => left * right,
+  multHelp: 'Usage: mult <number> <number> ...[mult <number>]...',
+
   div: (left, right) => left / right,
+  divHelp: 'Usage: div <number> <number> ...[div <number>]...',
+
   pow: (left, right) => left ** right,
-  sqrt: left => Math.sqrt(left)
+  powHelp: 'Usage: pow <number> <number> ...[pow <number>]...',
+
+  sqrt: left => Math.sqrt(left),
+  sqrtHelp: 'Usage: sqrt <number> ...[sqrt]...'
 };
 
 // Handle input (process.argv)
@@ -27,6 +40,13 @@ if (command === '--debug' || command === '-d') {
   process.exit();
 } else if (command === '--version' || command === '-v') {
   console.log(calc._version);
+  process.exit();
+} else if (
+  args[args.length - 1] === '--help' ||
+  args[args.length - 1] === '-h'
+) {
+  helpVar = command + 'Help';
+  console.log(calc[helpVar]);
   process.exit();
 }
 let total = +args.shift();
