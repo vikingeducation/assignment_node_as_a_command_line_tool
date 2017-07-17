@@ -26,5 +26,9 @@ module.exports = function(command, total, args) {
 		command = args.shift();
 	}
 
-	return total;
+	if (!isNaN(+total)) {
+		console.log(`Total: ${total}`);
+	} else {
+		console.log('You fool, learn to type!');
+	}
 };

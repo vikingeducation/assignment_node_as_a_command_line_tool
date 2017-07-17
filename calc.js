@@ -1,10 +1,16 @@
 const calc = require('./modules/calc-module');
 const getValue = require('./modules/calc-loop');
+let [command, args] = parseArgs();
+let interactive = false;
 
 // Handle input (process.argv)
 // Slice args
-const args = process.argv.slice(2);
-let command = args.shift();
+
+function parseArgs() {
+	const args = process.argv.slice(2);
+	let command = args.shift();
+	return [command, args];
+}
 
 switch (command) {
 	case '--debug':
@@ -24,20 +30,29 @@ switch (command) {
 		break;
 	case '--interactive':
 	case '-i':
+		interactive = true;
 		break;
 }
 
-if (args[args.length - 1] === '--help' || args[args.length - 1] === '-h') {
-	helpVar = command + 'Help';
-	console.log(calc[helpVar]);
-	process.exit();
-}
-let total = +args.shift();
+if (interactive) {
+	process.stdin.resume();
+	process.stdin.setEncoding("utf8");
 
-total = getValue(command, total, args);
-
-if (!isNaN(+total)) {
-	console.log(`Total: ${total}`);
+	process.stdin.on("data", function(data) {
+		if (data === "done\n") {
+			console.log("Goodbye! :)");
+			process.stdin.pause();
+		} else {
+			let [command, args] = parseArgs()
+		}
+	});
 } else {
-	console.log('You fool, learn to type!');
+	if (args[args.length - 1] === '--help' || args[args.length - 1] === '-h') {
+		helpVar = command + 'Help';
+		console.log(calc[helpVar]);
+		process.exit();
+	}
+	
+	let total = +args.shift();
+	getValue(command, total, args);
 }
