@@ -24,5 +24,4 @@ fs.writeFile('./data/input.txt', rndData, (err) => {
   process.exit();
 
 });
-//process.exit()
- }
+}
