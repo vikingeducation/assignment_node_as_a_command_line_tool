@@ -60,12 +60,25 @@ var interpret = (args) => {
     var next_command_index = args.forEach( function( element, index){
       if ( element == operations)
     })*/
+
     //find our command arguments (the numbers )
-    var index = 0;
+    var index = 0; //index of next command
+    for (var i = 0; i < args.length; i++) {
+      if ( operations.includes( args[i] ) ){
+        //found the next command
+        index = i;
+      }
+    }
+    numbers = args.slice( 0, index + 1 );
+
+
+
+
+
     operations.forEach( function( element ){
       var l = args.findIndex( element );
       if ( l >= index ){
-        //do nothing 
+        //do nothing
       }else {
         index = l;
       }
