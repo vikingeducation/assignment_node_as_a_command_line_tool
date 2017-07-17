@@ -21,18 +21,18 @@ process.stdin.on('data', str => {
     process.exit();
     } else {
       str = str.trim().split(' ');
-      debugger
-      var cmd = str.splice(0, 1);
-      debugger
+      var cmd = str.splice(0, 1)[0];
       var aux_args = str;
-      debugger
-      var child = cp.spawn(cmd, aux_args )
-      debugger
+      //
+      //
+      var child = cp.spawn( cmd, aux_args )
       child.stdout.on('data', data => {
         console.log(`data = ${data}`);
+      });
+      child.stderr.on( 'data', data => {
+        console.log(`EROOR!!!!! = ${data}`);
       })
-      debugger
     }
 
-  
+
   });
