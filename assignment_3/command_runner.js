@@ -12,7 +12,7 @@ process.stdin.on('data', function(str) {
 	}
 	str = str.split(' ');
 
-	var cmd = cp.spawn(str[0], str.splice(1));
+	var cmd = cp.spawn(str[0], str.slice(1));
 
 	cmd.on ('error', (err) => {
 		console.error(`${ err.stack }`);
