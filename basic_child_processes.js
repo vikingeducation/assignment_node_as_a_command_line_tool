@@ -55,4 +55,4 @@ cmd.on('close', (statusCode) => {
 
 
 //format
-//node basic_child_processes ps [aux arguments]
+//node basic_child_processes [aux arguments]
