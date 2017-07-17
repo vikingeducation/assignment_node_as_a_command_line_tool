@@ -75,6 +75,9 @@ function doMath(arr){
     case 'mult':
       multiplication(arr.slice(1))
       break;
+    case 'pow':
+      power(arr.slice(1))
+      break;
     default:
       console.log("that's not how you do math")
   }
@@ -121,7 +124,7 @@ function subtraction(arr){
   }
   if(debugOn === true){
   console.log("Subtracted " + arr.slice(0,i));
-console.log("Total" + total.toString());
+  console.log("Total" + total.toString());
 }
 else{console.log(total);}
 
@@ -162,6 +165,50 @@ function division(arr){
       } else {
         total /= parseInt(arr[i])
       }
+    }
+  }
+  if(debugOn === true){
+    console.log("Divided " + arr.slice(0,i));
+console.log("Total" + total.toString());
+  }else{console.log(total);}
+}
+
+function power(arr){
+  for (var i=0; i<arr.length; i++){
+    if (isNaN(arr[i])){
+      if(debugOn === true){
+        console.log("Divided " + arr.slice(0,i) + " new total " + total.toString());}
+      doMath(arr.slice(i))
+      return
+    } else {
+      if (total === undefined){
+        if (isNaN(arr[i+1])) {
+          doMath(arr.slice(i))
+          return
+        } else {
+          total = Math.pow(parseInt(arr[i]), parseInt(arr[i+1]))
+          i++
+        }
+      } else {
+        total = Math.pow(parseInt(total), parseInt(arr[i]));
+      }
+    }
+  }
+  if(debugOn === true){
+    console.log("Divided " + arr.slice(0,i));
+console.log("Total" + total.toString());
+  }else{console.log(total);}
+}
+
+function squareRoot(arr) {
+  for (var i=0; i<arr.length; i++){
+    if (isNaN(arr[i])){
+      if(debugOn === true){
+        console.log("Divided " + arr.slice(0,i) + " new total " + total.toString());}
+      doMath(arr.slice(i))
+      return
+    } else {
+      total += Math.sqrt(parseInt(arr[i]))
     }
   }
   if(debugOn === true){
