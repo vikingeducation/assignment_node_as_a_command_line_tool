@@ -49,7 +49,7 @@ function calc (num1, op, args) {
 }
 
 function isSingleArgument(op) {
-  return (op === 'sqrt');
+  return (op === 'sqrt' || op === 'abs');
 }
 
 function print (op, num1, num2, result) {
@@ -90,6 +90,9 @@ function specialMath(num1, num2, op) {
     return Math.pow(num1, num2);
   }
   if (op === 'sqrt') {
+    return Math.sqrt(num1);
+  }
+  if (op === 'abs') {
     return Math.sqrt(num1);
   }
 
