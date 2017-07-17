@@ -1,7 +1,4 @@
-/*Create a file called calc.js
-
-
-First pseudocode your approach
+/*
 How will you map user input to JavaScript functions?
 How will you properly pass arguments to subcommands to the appropriate function?
 How will you enable subcommand chaining?
@@ -28,9 +25,6 @@ $ node calc.js --help
 #=> Explanation of how to use the calculator....*/
 //add 5 5 sub 3 divide 2 ......
 
-
-//listen to stdin
-
 //take arguments
 
 //parse args into commmands
@@ -42,11 +36,24 @@ $ node calc.js --help
   //
 
 //skip first command
-while args.length != 0 {
+
 //search for command
 //findIndex => -1
 //take the stuff before it and add into command array
 //take is destructive
+}
+
+var args = process.argv.slice(2);
+var operations = ['add', 'sub', 'mult', 'div'];
+var interpret = (args) => {
+  var result = 0
+  while args.length != 0 {
+    
+    switch (args[0]) {
+      case 'add': 
+
+        var out = args[1] + args[2]
+}
 }
 
 
