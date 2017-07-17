@@ -1,6 +1,5 @@
 let input = process.argv;
 
-
 let oper = process.argv[2]; // first argument
 let isDebug = false, startId = 3;
 
@@ -20,21 +19,22 @@ if (oper === '-d' || oper === '--debug') {
   startId ++;
 }
 
-let elements = process.argv.slice(startId+1);
+let elements = process.argv.slice(startId + 1);
 console.log(calc (process.argv[startId], oper, elements));
 
 function calc (num1, op, args) {
   let result, num2;
-  // sqrt(x), abs(x), sqr(x)...
+
+  // console.log('Args: ' + args);
 
   // console.log (num1 +  ' ' + op + ' ' + args);
-
+  // sqrt(x), abs(x), sqr(x)...
   if (isSingleArgument(op)) {
     result = specialMathForSingle(num1, op);
   }
   else {
     num2 = args[0];
-    args.splice(1);
+    args = args.slice(1);
     result = specialMath(num1, num2, op);
   }
 
@@ -68,6 +68,8 @@ function specialMathForSingle(num1, op) {
 function specialMath(num1, num2, op) {
   num1 = Number(num1);
   num2 = Number(num2);
+
+  // print(op, num1, num2, 0);
 
   if(op === "add") {
     return num1 + num2;
