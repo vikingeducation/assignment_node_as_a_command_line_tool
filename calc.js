@@ -52,14 +52,8 @@ var interpret = (args) => {
   while (args.length != 0) {
     //"add 3 3 sub 0 div 1" = arg syntax
 
-    command = args[0];
-    console.log(args);
-    /*var find = function(){
-      return
-    }
-    var next_command_index = args.forEach( function( element, index){
-      if ( element == operations)
-    })*/
+    var command = args[0];
+    args.shift();
 
     //find our command arguments (the numbers )
     var index = 0; //index of next command
@@ -70,12 +64,45 @@ var interpret = (args) => {
         break;
       }
     }
-    numbers = args.slice( 0, index + 1 );
+    var numbers = args.slice( 0, index);
+    args = args.splice(0, index);
+
+    switch ( command ) {
+      case 'add':
+
+        //var out = args[1] + args[2]
+        result += numbers.reduce(function(sum, value) {
+          return sum + value;
+        })
+        break;
+      case 'sub':
+        result -= numbers.reduce(function(sum, value) {
+          return sum - value;
+        })
+        break;
+      case 'mult':
+        result *= numbers.reduce(function(sum, value) {
+          return sum * value;
+        })
+        break;
+      case 'div':
+        result /= numbers.reduce(function(sum, value) {
+          return sum / value;
+        })
+        break;
+      default:
+        console.log('Error in switch!')
+    }
+    //break;
+  }
+
+}
+interpret( args );
 
 
 
 
-
+/*//////////////////////////////////////////
     operations.forEach( function( element ){
       var l = args.findIndex( element );
       if ( l >= index ){
@@ -86,30 +113,13 @@ var interpret = (args) => {
     })
 
 
-    var nums = operations.sele
-    switch ( command ) {
-      case 'add':
-
-        //var out = args[1] + args[2]
-        result += //args[1] args[2]
-        break;
-      case 'sub':
-        var
-        break;
-      case 'mult':
-        //stuff
-        break;
-      case 'div':
-        //stuff
-        break;
-      default:
-        console.log('Error in switch!')
+  // console.log(args);
+    /*var find = function(){
+      return
     }
-    break;
-  }
-
-}
-interpret( args );
+    var next_command_index = args.forEach( function( element, index){
+      if ( element == operations)
+    })*/
 
 
 
@@ -117,12 +127,5 @@ interpret( args );
 
 
 
+//
 
-
-
-
-
-
-
-
-///
