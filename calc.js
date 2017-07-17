@@ -5,23 +5,41 @@ process.stdin.resume();
 process.stdin.setEncoding('utf8');
 
 var total;
+//console.log(process.argv[0]);
+function NonInteractive () {
+  //total = undefined
+  //str = str.trim();
+  //newArr = str.toString().split(" ");
+  var newArr = process.argv.slice(2);
 
-process.stdin.on('data', (str) => {
-  total = undefined
-  str = str.trim();
-  newArr = str.toString().split(" ");
   // console.log(newArr)
-
-  if (str[0] === '-'){
-    dashCheck(str);
+  var tempStr = newArr[0]
+  if (tempStr[0] === '-'){
+    dashCheck(tempStr);
   }
   else {
     doMath(newArr)
   }
 
-})
+}
+NonInteractive()
+// process.stdin.on('data', (str) => {
+//   total = undefined
+//   str = str.trim();
+//   newArr = str.toString().split(" ");
+//   newArr = process.argv.split(2);
+//   // console.log(newArr)
+//
+//   if (str[0] === '-'){
+//     dashCheck(str);
+//   }
+//   else {
+//     doMath(newArr)
+//   }
+//
+// })
 
-
+//console.log(process.argv);
 function dashCheck(input) {
   var newInput = input.split('-').join('')
   if (newInput[0] === 'v'){
@@ -53,11 +71,12 @@ function doMath(arr){
 function addition(arr){
   for (var i=0; i<arr.length; i++){
     if (isNaN(arr[i])){
+      console.log("Added " + arr.slice(0,i) + " " + total.toString());
       doMath(arr.slice(i))
       return
     } else {
       if (total === undefined){
-        total = arr[i]
+        total = parseInt(arr[i])
       } else {
         total += parseInt(arr[i])
       }
@@ -69,11 +88,14 @@ function addition(arr){
 function subtraction(arr){
   for (var i=0; i<arr.length; i++){
     if (isNaN(arr[i])){
+      console.log("Subtracted " + arr.slice(0,i) + " " + total.toString());
       doMath(arr.slice(i))
+
+
       return
     } else {
       if (total === undefined){
-        total = arr[i]
+        total = parseInt(arr[i])
       } else {
         total -= parseInt(arr[i])
       }
@@ -85,11 +107,12 @@ function subtraction(arr){
 function multiplication(arr){
   for (var i=0; i<arr.length; i++){
     if (isNaN(arr[i])){
+        console.log("Multiplied " + arr.slice(0,i) + " " + total.toString());
       doMath(arr.slice(i))
       return
     } else {
       if (total === undefined){
-        total = arr[i]
+        total = parseInt(arr[i])
       } else {
         total *= parseInt(arr[i])
       }
@@ -102,11 +125,12 @@ function multiplication(arr){
 function division(arr){
   for (var i=0; i<arr.length; i++){
     if (isNaN(arr[i])){
+        console.log("Divided " + arr.slice(0,i) + " " + total.toString());
       doMath(arr.slice(i))
       return
     } else {
       if (total === undefined){
-        total = arr[i]
+        total = parseInt(arr[i])
       } else {
         total /= parseInt(arr[i])
       }
