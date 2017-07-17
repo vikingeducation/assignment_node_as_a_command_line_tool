@@ -1,7 +1,7 @@
 const cp = require("child_process");
 
-/*
-let cmd = cp.spawn('ps', ['aux']);
+
+let cmd = cp.spawn('ps', ['-aux']);
 
 cmd.on('error', (err) => {
   console.log("NORMAL ERROR");
@@ -9,23 +9,23 @@ cmd.on('error', (err) => {
 });
 
 cmd.stdout.on("data", (data) => {
-  console.error(`Data: ${data}`);
+  console.error(`Data: ${data.toString()}`);
 });
 
 
 // what is the difference between error and stderror?
 cmd.stderr.on('data', (data) => {
   console.log("STANDARD ERROR");
-  console.error(`STDERROR: ${data}`);
+  console.error(`STDERROR: ${data.toString()}`);
 });
 
 cmd.on("close", (code) => {
   console.log(`Child process exited with code: ${code}`);
 });
-*/
 
 
-let cmd = cp.exec('ps aux', (err, stdout, stderr) => {
+/*
+let cmd = cp.exec('ps -aux', (err, stdout, stderr) => {
   if(err) {
     console.error(`${err}`);
   }
@@ -34,10 +34,11 @@ let cmd = cp.exec('ps aux', (err, stdout, stderr) => {
     console.error(`${stderr}`);
   }
 
-  console.log(`Child Process STDOUT: ${stdout}`)
+  console.log(`Child Process STDOUT: ${stdout.toString()}`)
 });
 
 // ASK ABOUT THIS AS WELL
 cmd.on('exit', (code) => {
   console.log(`Childe process exited with code: ${code}`);
 });
+*/
