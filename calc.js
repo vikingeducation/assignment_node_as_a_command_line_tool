@@ -67,6 +67,7 @@ var interpret = (args) => {
       if ( operations.includes( args[i] ) ){
         //found the next command
         index = i;
+        break;
       }
     }
     numbers = args.slice( 0, index + 1 );
