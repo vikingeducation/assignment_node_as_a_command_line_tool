@@ -17,7 +17,7 @@ Commit!*/
 
 const cp = require('child_process');
 
-//var aux_args = process.argv.slice(2); //this doesn't work, it 
+//var aux_args = process.argv.slice(2); //this doesn't work, it
 
 //grab our command arguments
 var aux_args = process.argv;
@@ -55,4 +55,4 @@ cmd.on('close', (statusCode) => {
 
 
 //format
-//node basic_child_processes ps [aux arguments]
+//node basic_child_processes [aux arguments]
