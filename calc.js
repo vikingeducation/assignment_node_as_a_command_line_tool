@@ -1,7 +1,6 @@
 const fs = require('fs');
 var cp = require('child_process')
 
-process.stdin.resume();
 process.stdin.setEncoding('utf8');
 
 var total;
@@ -11,6 +10,7 @@ function NonInteractive () {
   //str = str.trim();
   //newArr = str.toString().split(" ");
   var newArr = process.argv.slice(2);
+  console.log(newArr);
 
   // console.log(newArr)
   var tempStr = newArr[0]
@@ -22,30 +22,38 @@ function NonInteractive () {
   }
 
 }
-NonInteractive()
-// process.stdin.on('data', (str) => {
-//   total = undefined
-//   str = str.trim();
-//   newArr = str.toString().split(" ");
-//   newArr = process.argv.split(2);
-//   // console.log(newArr)
-//
-//   if (str[0] === '-'){
-//     dashCheck(str);
-//   }
-//   else {
-//     doMath(newArr)
-//   }
-//
-// })
+
+
+function standardIn(){
+
+  process.stdin.resume();
+  process.stdin.setEncoding('utf8')
+  
+  process.stdin.on('data', (str) => {
+    total = undefined
+    str = str.trim();
+    newArr = str.toString().split(" ");
+    // newArr = process.argv.split(2);
+
+    if (str[0] === '-'){
+      dashCheck(str);
+    }
+    else {
+      doMath(newArr)
+    }
+  })
+}
+
 
 //console.log(process.argv);
 function dashCheck(input) {
   var newInput = input.split('-').join('')
   if (newInput[0] === 'v'){
     console.log(process.version)
-  } else {
+  } else if (newInput[0] === 'h'){
     console.log('something about helping')
+  } else {
+    standardIn();
   }
 }
 
@@ -138,3 +146,5 @@ function division(arr){
   }
   console.log(total)
 }
+
+NonInteractive()
