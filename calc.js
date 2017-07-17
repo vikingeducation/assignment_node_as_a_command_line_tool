@@ -3,10 +3,13 @@
 const calc = {
 	_version: 1.0,
 	_helpString: 'Usage: node calc.js <cmd> <value> <value> [<cmd> <value>...]\nAvailable commands:\n--version (-v) --help (-h) add sub mult div',
+	debug: false,
 	add: (left, right) => left + right,
 	sub: (left, right) => left - right,
 	mult: (left, right) => left * right,
-	div: (left, right) => left / right
+	div: (left, right) => left / right,
+	pow: (left, right) => left ** right,
+	sqrt: (left) => Math.sqrt(left)
 };
 
 // Handle input (process.argv)
@@ -14,28 +17,45 @@ const calc = {
 const args = process.argv.slice(2);
 let command = args.shift();
 
+
+if (command === "--debug" || command === "-d") {
+	command = args.shift();
+	calc.debug = true;
+}
+
 let total = +args.shift();
 // Extract values to be manipulated.
 
 // Determine which command was passed.
-var i = 0;
+
 do {
 	// Pull next value to apply
-	let right = +args.shift();
+	let right;
+
+	if (command !== "sqrt") {
+		right = +args.shift();
+	}
+
+	let left = total;
 
 	// Perform the math.
 	total = getValue(command, total, right);
 	if (isNaN(+total)) {
-		console.log(total);
 		break;
 	}
-	command = args.shift();
-	if (!args.length || i == 100) break;
-} while (true);
 
-if (total) console.log(`Total: ${total}`);
+	if (calc.debug) {
+		console.log(`${command} ${left} ${right} => ${total}`);
+	}
+
+	command = args.shift();
+} while (command !== "sqrt" && !args.length);
+
+console.log(`Total: ${total}`);
 
 function getValue(command, left, right) {
+	calc[command](left, right)
+
 	switch (command) {
 		// Add, subtract, multiply, divide.
 		case 'add':
@@ -46,9 +66,10 @@ function getValue(command, left, right) {
 			return calc.mult(left, right);
 		case 'div':
 			return calc.div(left, right);
-		case '-d':
-		case '--debug':
-
+		case 'pow':
+			return calc.pow(left, right);
+		case 'sqrt':
+			return calc.sqrt(left);
 		case '-v':
 		case '--version':
 			return calc._version;
