@@ -21,16 +21,17 @@ process.stdin.on('data', str => {
     process.exit();
     } else {
       str = str.trim().split(' ');
+      console.log("trimmed string = " + str)
+      //first word of input is the command to be spawned
       var cmd = str.splice(0, 1)[0];
+      // the remaining array elements are arguments
       var aux_args = str;
-      //
-      //
       var child = cp.spawn( cmd, aux_args )
       child.stdout.on('data', data => {
-        console.log(`data = ${data}`);
+        console.log(`Output = ${data}`);
       });
       child.stderr.on( 'data', data => {
-        console.log(`EROOR!!!!! = ${data}`);
+        console.error(`Error! = ${data}`);
       })
     }
 
