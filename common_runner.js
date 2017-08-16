@@ -5,7 +5,7 @@ var child_process = require('child_process');
 process.stdin.on('data', (data) => {
 	data = data.trim();
 	if(data == "q" || data == "Q" || data == "quit"){
-		console.log('quitting');
+		console.log('Process is quitting...');
 		process.exit();
 	}
 	else{

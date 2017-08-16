@@ -1,0 +1,19 @@
+{
+  "name": "node_calculator",
+  "version": "1.0.0",
+  "description": "A simple calculator that parses command line args and calculates the results. Can chain methods",
+  "main": "calc.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bparkerproductions/assignment_node_as_a_command_line_tool.git"
+  },
+  "author": "Brandon Parker",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bparkerproductions/assignment_node_as_a_command_line_tool/issues"
+  },
+  "homepage": "https://github.com/bparkerproductions/assignment_node_as_a_command_line_tool#readme"
+}
