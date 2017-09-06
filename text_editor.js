@@ -22,7 +22,7 @@ process.stdin.on('data', function(data){
     //check if file exists
     if (!fs.existsSync('input.txt')){
       //if it doesn't exist  then make it and write it
-      //wx forces a failure if file exists
+      //wx flag forces a failure if file exists
       //https://stackoverflow.com/questions/12899061/creating-a-file-only-if-it-doesnt-exist-in-node-js
       fs.writeFile('input.txt', dataToBeWritten, { flag: 'wx' }, (err) => {
         if (err) throw err;
@@ -40,7 +40,7 @@ process.stdin.on('data', function(data){
     console.log('goodbye')
     process.stdin.pause();
     // END: if (data === '\\q' || data === '\\quit')
-  } else {//if not \q or \quit save into string
+  } else {//if not \q or \quit save input into string
     dataToBeWritten += data + "\n"
     console.log(`DATA TO BE WRITTEN: ${dataToBeWritten}`)
 
