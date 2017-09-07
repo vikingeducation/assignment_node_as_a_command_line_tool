@@ -12,11 +12,6 @@ process.stdin.on('data', function(data){
   //trim the whitespace
   data = data.trim();
 
-  //function to write data
-  function writeDataToBeWritten(thatData){
-
-  };
-
   //allow to quit
   if (data === '\\q' || data === '\\quit') {
     //check if file exists
@@ -46,4 +41,4 @@ process.stdin.on('data', function(data){
 
   }
 
-});
+});//end process listener
