@@ -1,15 +1,34 @@
-// start process
+const calFuncs = require('./calc_functions.js');
+const fs = require('fs');
 
-// check if first arg starts with flag (-) or operation (add, sub, div or mult)
+const version = '1.0.0';
+
+process.stdin.resume();
+process.stdin.setEncoding('utf8');
+
+const firstArg = process.argv[2];
 
 // if starts with flag
+if (firstArg.startsWith('-')) {
+  if (calFuncs.checkForValidFlag(firstArg)) {
 
-  // if -h or --help
-    // log help information
-  // else if -v or --version
-    // log version information
-  // else
-    // log error - invalid flag
+    if (firstArg === '-h' || firstArg === '--help') {
+      fs.readFile('./data/calc_help.txt', 'utf8', (err, data) => {
+        console.log(data);
+        process.exit();
+      });
+    } else if (firstArg === '-v' || firstArg === '--version') {
+      console.log(`Verion: ${ version }`);
+      process.exit();
+    }
+  } else {
+    console.error(`'${ firstArg }' is not a valid flag`);
+    process.exit();
+  }
+
+} else { // no flag
+
+}
 
 // else if starts with operation (add, sub, div or mult)
   // if there aren't 2 numbers after the operation
@@ -38,4 +57,6 @@
   // else there is no more arguments
     // log the final answer
     // pause the process for another operation!
+
+
 
