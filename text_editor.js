@@ -34,8 +34,8 @@ process.stdin.on('data', function(data){
 
     console.log('goodbye')
     process.stdin.pause();
-    // END: if (data === '\\q' || data === '\\quit')
-  } else {//if not \q or \quit save input into string
+
+  } else {//if not \q or \quit THEN save input into string
     dataToBeWritten += data + "\n"
     console.log(`DATA TO BE WRITTEN: ${dataToBeWritten}`)
 
