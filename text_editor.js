@@ -22,7 +22,8 @@ if (process.argv[2] && filename.length > 3 && filename.endsWith('.txt')) {
   });
 
 } else if (!process.argv[2]) {
-  console.error('you must add a file to write to');
+  console.error('You must add a file to write to');
+  console.log('Add the file like this: `node text_editor.js YOUR_FILE.TXT`');
   process.exit();
 } else {
   console.error('Filename must end in .txt');
