@@ -9,7 +9,7 @@ process.stdin.setEncoding('utf8');
 const firstArg = process.argv[2];
 
 // if starts with flag
-if (firstArg.startsWith('-')) {
+if (firstArg && firstArg.startsWith('-')) {
   if (calFuncs.checkForValidFlag(firstArg)) {
 
     if (firstArg === '-h' || firstArg === '--help') {
@@ -26,11 +26,27 @@ if (firstArg.startsWith('-')) {
     process.exit();
   }
 
-} else { // no flag
+} else if (firstArg) { // no flag
 
+  if (calFuncs.checkForValidOperation(firstArg)) {
+    var firstNum = parseInt(process.argv[3]);
+    var secondNum = parseInt(process.argv[4]);
+
+    if (firstNum && secondNum) {
+      var answer = calFuncs.calc(firstArg, firstNum, secondNum);
+      console.log(answer);
+      process.exit();
+    } else {
+      console.error('You need to enter two numbers after the operation');
+      process.exit();
+    }
+  }
+} else {
+  console.error("You need to pass an operation followed by two number to use the calculator");
+  process.exit();
 }
 
-// else if starts with operation (add, sub, div or mult)
+// if starts with operation (add, sub, div or mult)
   // if there aren't 2 numbers after the operation
     // log an error
     // pause the process
