@@ -36,7 +36,7 @@ function mapFlagInput(data) {
       console.log(`Calculator Version ${packageJSON.version}`);
       break;
     default:
-      console.log('invalid flag, type "-h for help"')
+      invalidInputs()
   }
 
 };//END mapFlagInput
@@ -88,15 +88,40 @@ function calculator(operation, subtotal, operand) {
     case 'mult':
       result = op1 * op2;
       break;
+    case 'pow':
+      result = Math.pow(op1, op2);
+      break;
+    case 'sqrt':
+      result = Math.sqrt(op1);
+      break;
     default:
-      console.log("invalid inputs. type -h for help")
+      invalidInputs()
   }
 
   return result;
 
-}
+};//END calculator
 
 
 //printHelp
+function printHelp(){
+  console.log('Welcome to Gregs calculator');
+  console.log('============================')
+  console.log('Type "q", "quit", or "exit" to exit program');
+  console.log('Type "-v" or "--version" to print version #');
+  console.log('============================')
+  console.log('Use the following format to Calculate:');
+  console.log('<operation><integar><integar>');
+  console.log('============================')
+  console.log('operations can be:');
+  console.log('<add><sub><mult><div><pow><sqrt>')
+  console.log('============================')
+  console.log('operations can be chained like such:')
+  console.log('<oper><int><int><oper><int>')
+};
 
 //invalid inputs
+function invalidInputs(){
+  console.log("Your inputs are bad and you should feel bad")
+  console.log("Type -h for help")
+};
