@@ -41,61 +41,61 @@ function mapFlagInput(data) {
 
 };//END mapFlagInput
 
-var result;
-
 //parse inputs function
 function mapCalcInput(dataArray) {
 
   //array to store calculator data and reset everytime:
-  var operation = [];
-  var integers = [];
+  var operation;
+  var subtotal;
+  var operand;
 
   //the first value should be an operator
   operation = dataArray.shift()
+  subtotal = dataArray.shift()
+  operand = dataArray.shift()
 
-  //check the next values for nums
-  //push those nums into integers then stop
-  //and make it into a Number()
-  while (!isNaN(dataArray[0])){
-	  integers.push(Number(dataArray.shift()))
+  subtotal = calculator(operation, subtotal, operand);
+
+  while (dataArray.length > 0){
+    operation = dataArray.shift();
+    operand = dataArray.shift();
+
+    subtotal = calculator(operation, subtotal, operand);
   }
 
-  result = calculator(operation, integers, dataArray);
-  console.log(result);
-
-  /*CHECK inputs if good then feed into calculator
-  if ((!integers.some(isNaN)) && (operation.some(isNaN))) {
-
-  } else {
-    console.log("Your inputss are bad, and you should feel bad. Type -h")
-  }*/
+  console.log(subtotal);
 
 };//END mapCalcInput
 
 
 //calculator
-//the dataArray fed into here should be whats left over to calc after this
-function calculator(operation, integers, dataArray) {
+function calculator(operation, subtotal, operand) {
+
+  var result;
+  var op1 = Number(subtotal);
+  var op2 = Number(operand);
 
   switch (operation) {
     case 'add':
-      return integers[0] + integers[1];
+      result = op1 + op2;
       break;
     case 'sub':
-      return integers[0] - integers[1];
+      result = op1 - op2;
       break;
     case 'div':
-      return integers[0] / integers[1];
+      result = op1 / op2;
       break;
     case 'mult':
-      return integers[0] * integers[1];
+      result = op1 * op2;
       break;
     default:
       console.log("invalid inputs. type -h for help")
   }
 
+  return result;
+
 }
-  //switch
+
 
 //printHelp
 
