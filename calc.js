@@ -26,53 +26,62 @@ if (firstArg && firstArg.startsWith('-')) {
     process.exit();
   }
 
-} else if (firstArg) { // no flag
+} else if (firstArg) {
 
   if (calFuncs.checkForValidOperation(firstArg)) {
-    var firstNum = parseInt(process.argv[3]);
-    var secondNum = parseInt(process.argv[4]);
+
+    const argsPassed = process.argv;
+
+    var firstNum = parseInt(argsPassed[3]);
+    var secondNum = parseInt(argsPassed[4]);
+    var answer;
 
     if (firstNum && secondNum) {
-      var answer = calFuncs.calc(firstArg, firstNum, secondNum);
+      answer = calFuncs.calc(firstArg, firstNum, secondNum);
+
+      var index = 5;
+
+
+      if (argsPassed[index]) { // argument after first three
+        if (!calFuncs.checkForValidOperation(argsPassed[index]) && isNaN(argsPassed[index])) {
+          console.error(`Command '${ argsPassed[index] }' not recognized. Use --help for info.`);
+          process.exit();
+        } else if (parseInt(argsPassed[index])) { // three numbers entered
+          console.error('You can only enter two numbers after the first operation');
+          process.exit();
+        }
+      }
+
+      while (calFuncs.checkForValidOperation(argsPassed[index]) && parseInt(argsPassed[index + 1])) { // there is an operation and number
+
+        // check later arguments for errors
+        if (argsPassed[index + 2] && !calFuncs.checkForValidOperation(argsPassed[index + 2]) && isNaN(argsPassed[index + 2])) {
+          console.error(`Command '${ argsPassed[index + 2] }' not recognized. Use --help for info.`);
+          process.exit();
+        } else if (argsPassed[index + 2] && !calFuncs.checkForValidOperation(argsPassed[index + 2]) && !isNaN(argsPassed[index + 2])) {
+          console.error('You can only enter one number per chained operation');
+          process.exit();
+        } else if (argsPassed[index + 2] && calFuncs.checkForValidOperation(argsPassed[index + 2]) && !parseInt(argsPassed[index + 3])) {
+          console.error(`You must enter a number after an operation`);
+          process.exit();
+        }
+
+        // recalculate answer
+        answer = calFuncs.calc(argsPassed[index], answer, parseInt(argsPassed[index + 1]));
+        index += 2;
+      }
+
       console.log(answer);
       process.exit();
     } else {
       console.error('You need to enter two numbers after the operation');
       process.exit();
     }
+  } else {
+    console.error('You need to enter a valid operation and two numbers. Use --help for more info.');
+    process.exit();
   }
 } else {
-  console.error("You need to pass an operation followed by two number to use the calculator");
+  console.error("You need to pass an operation followed by two numbers to use the calculator");
   process.exit();
 }
-
-// if starts with operation (add, sub, div or mult)
-  // if there aren't 2 numbers after the operation
-    // log an error
-    // pause the process
-
-  // create a var 'answer'
-  // create a var 'endOfOperations' set to false
-
-  // perform initial calculation
-  // update answer
-
-
-  // if there is a next argument
-
-    // while endOfOperations === false
-      // if the one after the operation is a number
-        // perform calculation
-        // update answer
-
-        // unless next argument after number is an operation
-          // endOfOperations = true
-          // log the final answer
-          // pause the process for another operation!
-
-  // else there is no more arguments
-    // log the final answer
-    // pause the process for another operation!
-
-
-
