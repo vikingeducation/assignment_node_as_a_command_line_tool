@@ -1,0 +1,10 @@
+---- Calculator Usage ----
+
+$ node calc.js add 5 5
+#=> 10
+
+$ node calc.js add 5 5 sub 3
+#=> 7
+
+$ node calc.js add 5 5 sub 3 mult 2 div 2
+#=> 7
