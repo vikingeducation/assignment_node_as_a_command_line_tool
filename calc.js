@@ -1,7 +1,5 @@
-// use process.argv array to get user's commands and arguments
-var args = process.argv.slice(2, process.argv.length);
+let args = process.argv.slice(2, process.argv.length);
 
-// map user input to operators with an object
 const operators = {
   add: '+',
   sub: '-',
@@ -21,8 +19,6 @@ The following commands are available:
   Multiplication: mult (a) (b)
   Division:       div (a) (b)`;
 
-// if userinput is -v or --version or -h or --help, show relevant info
-// otherwise evaluate function and arguments and return result
 if (args[0] === '-v' || args[0] === '--version') {
   console.log(version);
 } else if (args[0] === '-h' || args[0] === '--help') {
@@ -30,14 +26,14 @@ if (args[0] === '-v' || args[0] === '--version') {
 } else {
   let operator = operators[args[0]];
   let expression = args[1] + operator + args[2];
-  console.log(eval(expression));
-}
+  let result = eval(expression);
+  let i = 3;
 
-
-function myCalc(operator, arg1, arg2) {
-
-  return eval(arg1,operator,arg2);
-}
-
-// store output of previous subcommand in variable and forward
-// to next subcommand to allow subcommand chaining
+  while (i < args.length) {
+    operator = operators[args[i]];
+    expression = result + operator + args[i+1];
+    result = eval(expression);
+    i += 2;
+  }
+  console.log(result);
+};
