@@ -1,0 +1,19 @@
+{
+  "name": "assignment_node_as_a_command_line_tool",
+  "version": "1.0.0",
+  "description": "Working with standard I/O, processes and command-line arguments in Node",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/promilo/assignment_node_as_a_command_line_tool.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/promilo/assignment_node_as_a_command_line_tool/issues"
+  },
+  "homepage": "https://github.com/promilo/assignment_node_as_a_command_line_tool#readme"
+}
