@@ -1,13 +1,16 @@
 console.log("welcome to milind's calculator")
 const commands = process.argv.slice(2);
 
-const version = '1'
+const version = 'version 1.0.0'
 const help = 'you can add, sub, mult, div, pow, sqrt. you can chain commands'
 
 if (commands[0] === '-v' || commands[0] === '--version'){
   console.log(version)
-} else if (commands[0] === '-h' || commands[0] === '--version'){
+  return
+} else if (commands[0] === '-h' || commands[0] === '--help'){
   console.log(help)
+  return
+
 }
 
 let counter = 0
