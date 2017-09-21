@@ -5,7 +5,7 @@ process.stdin.setEncoding('utf8')
 
 process.stdin.on('data', (str) => {
   str = str.trim();
-  if (str === '\\q') {
+  if (str === 'quit') {
       console.log("quiting process")
       process.exit();
     } else {
