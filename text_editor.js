@@ -1,10 +1,10 @@
-let fs = require('fs');
+const fs = require('fs');
 
 process.stdin.setEncoding('utf8');
 
 process.stdin.on('data', function(str) {
   str = str.trim();
-  if (str === 'q' || str === 'quit') {
+  if (str === '\\q') {
     console.log('Goodbye.');
     process.stdin.pause();
   } else {
