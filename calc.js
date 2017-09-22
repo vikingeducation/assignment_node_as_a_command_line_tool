@@ -22,39 +22,48 @@
 
 let args = process.argv.slice(2);
 let command, int1, int2;
-let subtotal = 0;
+let subTotal = 0;
 
-//while (args.length !== 0) {
+while (args.length !== 0) {
+
   command = args.shift();
 
   switch (command) {
+
 	case 'add':
   	case 'sub':
   	case 'div':
   	case 'mult':
-  	  subtotal = doMath(command, args.shift(), args.shift())
-  	  console.log(`Result: ${ subtotal } `);
+  	  if (subTotal === 0) subTotal = args.shift();
+  	  subTotal = doMath(command, subTotal, args.shift());
+  	  console.log(`Result: ${ subTotal } `);
   	  break;
+
   	case '-v':
   	case '--version':
   	  console.log('1.0.0');
   	  break;
+
   	case '-h':
   	case'--help':
   	  printHelp();
   	  break;
+
   	case 'done':
   	  console.log("Goodbye!")
   	  process.exit();
+
   	default:
       console.log('Invalid input, please try again or type -h for help');
       break;
   }	
 
-//}	
+}	
 
 function doMath(command, num1, num2){
+
   switch (command) {
+
 	case 'add': 
 		return Number(num1) + Number(num2);
   	case 'sub':
@@ -69,6 +78,7 @@ function doMath(command, num1, num2){
 }
 
 function printHelp() {
+
 	console.log(`
   	--------- How to use calc.js ---------
   	Type "done" to exit program
