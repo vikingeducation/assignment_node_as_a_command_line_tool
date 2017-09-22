@@ -30,17 +30,12 @@ while (args.length !== 0) {
   command = args.shift();
 
   switch (command) {
-  	case '-d':
-  	case '--debug':
-  	  debugFlag = true;
-  	  console.log('Debug mode turned on now');
-  	  break;
-
+  	
 	case 'add':
   	case 'sub':
   	case 'div':
   	case 'mult':
-  	  
+  	case 'pow':
   	  if (subTotal === 0) subTotal = args.shift();
 
   	  int1 = subTotal;
@@ -53,6 +48,24 @@ while (args.length !== 0) {
   	  } else {
   	  	console.log(`Result: ${ subTotal } `);
   	  }
+  	  break;
+	
+	case 'sqrt':
+	  if (subTotal === 0) subTotal = args.shift();
+
+	  int1 = subTotal;
+	  subTotal = Math.sqrt(int1);
+	  if (debugFlag) {
+  	  	console.log(`${command} ${int1} => ${subTotal}` );
+  	  } else {
+	    console.log(`Result: ${ subTotal } `);
+	  }
+	  break;
+
+	case '-d':
+  	case '--debug':
+  	  debugFlag = true;
+  	  console.log('Debug mode turned on now');
   	  break;
 
   	case '-v':
@@ -88,6 +101,8 @@ function doMath(command, num1, num2){
   		return Number(num1) / Number(num2);
   	case 'mult':
   		return Number(num1) * Number(num2);
+  	case 'pow':
+  		return Math.pow(Number(num1), Number(num2));
   	default:
   		break;
   }
