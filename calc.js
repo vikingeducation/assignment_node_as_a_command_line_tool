@@ -21,12 +21,20 @@
 **************************************************************************/
 
 let args = process.argv.slice(2);
-let command;
+let command, int1, int2;
+let subtotal = 0;
 
-while (args.length !== 0) {
+//while (args.length !== 0) {
   command = args.shift();
 
   switch (command) {
+	case 'add':
+  	case 'sub':
+  	case 'div':
+  	case 'mult':
+  	  subtotal = doMath(command, args.shift(), args.shift())
+  	  console.log(`Result: ${ subtotal } `);
+  	  break;
   	case '-v':
   	case '--version':
   	  console.log('1.0.0');
@@ -39,10 +47,26 @@ while (args.length !== 0) {
   	  console.log("Goodbye!")
   	  process.exit();
   	default:
-      console.log('Error, please try again');
+      console.log('Invalid input, please try again or type -h for help');
+      break;
   }	
 
-}	
+//}	
+
+function doMath(command, num1, num2){
+  switch (command) {
+	case 'add': 
+		return Number(num1) + Number(num2);
+  	case 'sub':
+  		return Number(num1) - Number(num2);
+  	case 'div':
+  		return Number(num1) / Number(num2);
+  	case 'mult':
+  		return Number(num1) * Number(num2);
+  	default:
+  		break;
+  }
+}
 
 function printHelp() {
 	console.log(`
