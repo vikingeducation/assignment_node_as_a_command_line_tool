@@ -23,20 +23,36 @@
 let args = process.argv.slice(2);
 let command, int1, int2;
 let subTotal = 0;
+let debugFlag = false;
 
 while (args.length !== 0) {
 
   command = args.shift();
 
   switch (command) {
+  	case '-d':
+  	case '--debug':
+  	  debugFlag = true;
+  	  console.log('Debug mode turned on now');
+  	  break;
 
 	case 'add':
   	case 'sub':
   	case 'div':
   	case 'mult':
+  	  
   	  if (subTotal === 0) subTotal = args.shift();
-  	  subTotal = doMath(command, subTotal, args.shift());
-  	  console.log(`Result: ${ subTotal } `);
+
+  	  int1 = subTotal;
+  	  int2 = args.shift();
+
+  	  subTotal = doMath(command, int1, int2);
+
+  	  if (debugFlag) {
+  	  	console.log(`${command} ${int1} ${int2} => ${subTotal}` );
+  	  } else {
+  	  	console.log(`Result: ${ subTotal } `);
+  	  }
   	  break;
 
   	case '-v':
@@ -84,6 +100,7 @@ function printHelp() {
   	Type "done" to exit program
 	  or "-v" or "--version" for version 
 	  or "-h" or "--help" for help
+	  or "-d" or "--debug" for debug mode
 	--------------------------------------
 	Usage:  <oper> <int> <int>
 	where <oper> could be: 
