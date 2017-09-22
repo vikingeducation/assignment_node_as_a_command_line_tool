@@ -20,3 +20,45 @@
 
 **************************************************************************/
 
+let args = process.argv.slice(2);
+let command;
+
+while (args.length !== 0) {
+  command = args.shift();
+
+  switch (command) {
+  	case '-v':
+  	case '--version':
+  	  console.log('1.0.0');
+  	  break;
+  	case '-h':
+  	case'--help':
+  	  printHelp();
+  	  break;
+  	case 'done':
+  	  console.log("Goodbye!")
+  	  process.exit();
+  	default:
+      console.log('Error, please try again');
+  }	
+
+}	
+
+function printHelp() {
+	console.log(`
+  	--------- How to use calc.js ---------
+  	Type "done" to exit program
+	  or "-v" or "--version" for version 
+	  or "-h" or "--help" for help
+	--------------------------------------
+	Usage:  <oper> <int> <int>
+	where <oper> could be: 
+	  add/sub/mult/div/sqrt/pow
+	--------------------------------------
+	Example:  
+	  add 5 10
+	Or, could be chained like this:
+	  add 5 10 sub 4
+	--------------------------------------
+		`); 
+}
