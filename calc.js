@@ -1,8 +1,9 @@
 const args = process.argv;
-const calcArgs = args.slice(2);
-let operation = calcArgs[0];
-let leftNum = calcArgs[1];
-let rightNum = calcArgs[2];
+const maybeOptions = args[2];
+const version = '1.0.0';
+const helpText = "How to use the calculator: \n" + "  1. For basic calculator functions, use the following format: \n"
++ "     'node filename.js operation num1 num2'\n" + "  2. For chainable calculator functions, use the following format: \n"
++ "     'node filename.js operation num1 num2 operation num3...'\n" + "  Allowable operations include: 'add', 'sub', 'div', 'mult'.\n"
 
 
 function calc(leftNum, operation, rightNum) {
@@ -18,20 +19,34 @@ function calc(leftNum, operation, rightNum) {
   }
 }
 
-let returnedVal = calc(leftNum, operation, rightNum);
 
 
-if (calcArgs.length === 3) {
-  process.stdout.write(returnedVal.toString() + '\n');
+if (maybeOptions === '-v' || maybeOptions === '--version') {
+  process.stdout.write(`Version: ${version} \n`);
+} else if (maybeOptions === '-h' || maybeOptions === '--help') {
+  process.stdout.write(helpText);
 } else {
 
-  for (let i = 3; i <= calcArgs.length - 2; i += 2) {
-    operation = calcArgs[i];
-    rightNum = calcArgs[i + 1];
-    leftNum = returnedVal;
+  const calcArgs = args.slice(2);
+  let operation = calcArgs[0];
+  let leftNum = calcArgs[1];
+  let rightNum = calcArgs[2];
 
-    returnedVal = calc(leftNum, operation, rightNum);
+  let returnedVal = calc(leftNum, operation, rightNum);
+
+
+  if (calcArgs.length === 3) {
+    process.stdout.write(returnedVal.toString() + '\n');
+  } else {
+
+    for (let i = 3; i <= calcArgs.length - 2; i += 2) {
+      operation = calcArgs[i];
+      rightNum = calcArgs[i + 1];
+      leftNum = returnedVal;
+
+      returnedVal = calc(leftNum, operation, rightNum);
+    }
+
+    process.stdout.write(returnedVal.toString() + '\n');
   }
-
-  process.stdout.write(returnedVal.toString() + '\n');
 }
