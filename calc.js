@@ -36,41 +36,40 @@ while (args.length !== 0) {
   	case 'div':
   	case 'mult':
   	case 'pow':
+  	
   	  tempArg = args.shift();	
 
-  	  if (!isNumber(tempArg)) break;
+  	  if (askHelp(tempArg, 2)) break;		// check if -h or --help 
+	  if (!isNumber(tempArg)) break;		// error check if number or string 
  
-	  if (subTotal === 0) subTotal = tempArg;
-
-	  int1 = subTotal;
-	  int2 = args.shift();
-
-	  if (!isNumber(int2)) break;
-
-	  subTotal = doMath(command, Number(int1), Number(int2));
-
-	  if (debugFlag) {
-	  	console.log(`${command} ${int1} ${int2} => ${subTotal}` );
-	  } else {
-	  	console.log(`Result: ${ subTotal } `);
+	  if (subTotal === 0) {					// if first iteration:
+	  	int1 = tempArg;						// get two numbers from arg list
+	  	int2 = args.shift();
+	  	if (!isNumber(int2)) break;
+	  } else {								// if not, get just one number
+	  	int1 = subTotal;
+	  	int2 = tempArg;
 	  }
+
+	  subTotal = doMath(command, [Number(int1), Number(int2)]);
+
+	  showDebugMode(debugFlag, command, [int1, int2], subTotal);
 	  break;
 	
 	case 'sqrt':
-	  tempArg = args.shift();	
 
-  	  if (!isNumber(tempArg)) break;
-  	  
-	  if (subTotal === 0) subTotal = Number(args.shift());
-
-	  int1 = subTotal;
-	  subTotal = Math.sqrt(int1);
-
-	  if (debugFlag) {
-  	  	console.log(`${command} ${int1} => ${subTotal}` );
+	  if (subTotal === 0) {
+	  	tempArg = args.shift();	
+	  	if (askHelp(tempArg, 1)) break;
+  	  	if (!isNumber(tempArg)) break;
+  	  	int1 = tempArg;
   	  } else {
-	    console.log(`Result: ${ subTotal } `);
-	  }
+  	  	int1 = subTotal;
+  	  }
+
+	  subTotal = doMath(command, [int1]);
+
+	  showDebugMode(debugFlag, command, [int1], subTotal);
 	  break;
 
 	case '-d':
@@ -100,6 +99,9 @@ while (args.length !== 0) {
 
 }	
 
+
+//Functions called
+
 function isNumber(num) {
   if (!Number.isInteger(parseInt(num))){
     console.log('Invalid input, please enter a number or type -h for help');
@@ -109,23 +111,55 @@ function isNumber(num) {
   return true;
 }
 
-function doMath(command, num1, num2){
+function askHelp(num, numOperands) {
+ if (num === '-h' || num === '--help'){
+ 	if (numOperands === 1) {
+ 	  console.log(`Usage: <${command}> <int>`);
+ 	} else if (numOperands === 2){
+ 	  console.log(`Usage: <${command}> <int> <int>`);	
+ 	}
+ 	return true;
+ }
+ return false;
+}
 
-  switch (command) {
-
-	case 'add': 
-		return num1 + num2;
-  	case 'sub':
-  		return num1 - num2;
-  	case 'div':
-  		return num1 / num2;
-  	case 'mult':
-  		return num1 * num2;
-  	case 'pow':
-  		return Math.pow(num1, num2);
-  	default:
-  		break;
+function showDebugMode(flag, command, num, subTotal) {
+  if (flag) {
+  	if (num.length === 1) {
+  	  console.log(`${command} ${num[0]} => ${subTotal}` );
+  	} else if (num.length === 2){
+  	  console.log(`${command} ${num[0]} ${num[1]} => ${subTotal}` );
+  	}
+  } else {
+	console.log(`Result: ${ subTotal } `);
   }
+}
+
+function doMath(command, num){
+
+  if (num.length === 1) {
+	return Math.sqrt(num[0]);
+
+  } else if (num.length === 2) {
+	
+	let num1 = num[0];
+	let num2 = num[1];
+
+	switch (command) {
+	  case 'add': 
+		return num1 + num2;
+	  case 'sub':
+	  	return num1 - num2;
+	  case 'div':
+	  	return num1 / num2;
+	  case 'mult':
+	  	return num1 * num2;
+	  case 'pow':
+	  	return Math.pow(num1, num2);
+	  default:
+	  	break;
+	  }
+  }	  
 }
 
 function printHelp() {
