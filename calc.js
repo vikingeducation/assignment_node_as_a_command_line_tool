@@ -21,7 +21,7 @@
 **************************************************************************/
 
 let args = process.argv.slice(2);
-let command, int1, int2;
+let command, int1, int2, tempArg;
 let subTotal = 0;
 let debugFlag = false;
 
@@ -36,25 +36,36 @@ while (args.length !== 0) {
   	case 'div':
   	case 'mult':
   	case 'pow':
-  	  if (subTotal === 0) subTotal = args.shift();
+  	  tempArg = args.shift();	
 
-  	  int1 = subTotal;
-  	  int2 = args.shift();
+  	  if (!isNumber(tempArg)) break;
+ 
+	  if (subTotal === 0) subTotal = tempArg;
 
-  	  subTotal = doMath(command, int1, int2);
+	  int1 = subTotal;
+	  int2 = args.shift();
 
-  	  if (debugFlag) {
-  	  	console.log(`${command} ${int1} ${int2} => ${subTotal}` );
-  	  } else {
-  	  	console.log(`Result: ${ subTotal } `);
-  	  }
-  	  break;
+	  if (!isNumber(int2)) break;
+
+	  subTotal = doMath(command, Number(int1), Number(int2));
+
+	  if (debugFlag) {
+	  	console.log(`${command} ${int1} ${int2} => ${subTotal}` );
+	  } else {
+	  	console.log(`Result: ${ subTotal } `);
+	  }
+	  break;
 	
 	case 'sqrt':
-	  if (subTotal === 0) subTotal = args.shift();
+	  tempArg = args.shift();	
+
+  	  if (!isNumber(tempArg)) break;
+  	  
+	  if (subTotal === 0) subTotal = Number(args.shift());
 
 	  int1 = subTotal;
 	  subTotal = Math.sqrt(int1);
+
 	  if (debugFlag) {
   	  	console.log(`${command} ${int1} => ${subTotal}` );
   	  } else {
@@ -89,20 +100,29 @@ while (args.length !== 0) {
 
 }	
 
+function isNumber(num) {
+  if (!Number.isInteger(parseInt(num))){
+    console.log('Invalid input, please enter a number or type -h for help');
+    return false;
+  }
+
+  return true;
+}
+
 function doMath(command, num1, num2){
 
   switch (command) {
 
 	case 'add': 
-		return Number(num1) + Number(num2);
+		return num1 + num2;
   	case 'sub':
-  		return Number(num1) - Number(num2);
+  		return num1 - num2;
   	case 'div':
-  		return Number(num1) / Number(num2);
+  		return num1 / num2;
   	case 'mult':
-  		return Number(num1) * Number(num2);
+  		return num1 * num2;
   	case 'pow':
-  		return Math.pow(Number(num1), Number(num2));
+  		return Math.pow(num1, num2);
   	default:
   		break;
   }
