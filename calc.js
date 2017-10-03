@@ -9,9 +9,6 @@
 		//print out answer
 //this whole thing loops due to listener on stdin for data event
 
-const fs = require('fs');
-const spawn = require('child_process').spawn;
-
 process.stdin.resume();
 process.stdin.setEncoding('utf8');
 
