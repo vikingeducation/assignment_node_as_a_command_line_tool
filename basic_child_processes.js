@@ -5,24 +5,24 @@
 const spawn = require('child_process').spawn;
 
 //const my_ps = cp.spawn('ps', ['aux']);
-const my_ps = spawn('ps', ['aux']);
+const myPs = spawn('ps', ['aux']);
 
 //setup listener on error. these are real errors in executing command
-my_ps.on('error', err => {
+myPs.on('error', err => {
 	console.error(`error: ${err.stack}`);
 });
 
 //setup output stream listener on data
-my_ps.stdout.on('data', (data) => {
+myPs.stdout.on('data', (data) => {
   console.log(`stdout: ${data}`);
 });
 
 //setup output stream listener on data. These are errors during execution
-my_ps.stderr.on('data', (data) => {
+myPs.stderr.on('data', (data) => {
   console.log(`stderr: ${data}`);
 });
 
 //setup listener on close event
-my_ps.on('close', (code) => {
+myPs.on('close', (code) => {
   console.log(`child process exited with code ${code}`);
 });
