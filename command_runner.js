@@ -29,10 +29,3 @@ ${data}`);
 ${data}`);
   });
 });
-
-/*
-console.log("Data: " + data);
-console.log("Spawn commands: " + spawnCommands);
-console.log("Spawn root: " + spawnRoot);
-console.log(typeof spawnRoot);
-*/
