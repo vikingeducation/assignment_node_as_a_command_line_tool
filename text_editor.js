@@ -1,7 +1,4 @@
 var fs = require('fs');
-var cp = require('child_process');
-
-var cmd = cp.spawn('open', ['data/input.txt']);
 
 process.stdin.resume();
 
