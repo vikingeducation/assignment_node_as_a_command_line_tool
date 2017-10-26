@@ -11,26 +11,49 @@
 // var cp = require('child_process');
 
 
-var args = process.argv.slice(2, -1)
-var calc = function(a,b) {
-  add: function(a,b) {
-    return a + b;
-  },
-  sub: function(a,b) {
-    return a - b;
-  },
-  div: function(a,b) {
-    return a/b;
-  },
-  mult: function(a,b) {
-    return a*b;
-  },
-  total: 0;
+var args = process.argv.slice(2, process.argv.length)
+var calc = {
+  // add: function(a,b) {
+  //   return a + b;
+  // },
+  // sub: function(a,b) {
+  //   return a - b;
+  // },
+  // div: function(a,b) {
+  //   return a/b;
+  // },
+  // mult: function(a,b) {
+  //   return a*b;
+  // },
+  // total: 0,
 }
-args.forEach( function(val) {
+args.forEach( function(val, idx) {
+  if (val == '-h' || val == '--help' ) {
+    console.log('Explanation of how to use the calculator');
+  } else if (val == '-v' || val == '--version' ) {
+    console.log('1.0');
+  }
+  // var tempOp = 0;
+  // var val1, val2, total;
+  // if Number.isNaN( parseInt(val) ) {
+  //   if (val1 || val2) {
+  //
+  //   } else {
+  //     tempOp = calc.val();
+  //   }
+  // } else {
+  //   if (val1 == false && val1 == true  && idx != args.length-1) ) {
+  //     val1 = val;
+  //   } else if (val2 == false && val1 == true && idx != args.length-1) {
+  //     val2 = val;
+  //   } else if (idx == args.length-1) {
+  //     tempOp(val1, val2);
+  //   }
+  // }
 
 } )
 
+console.log(args);
 
 
 // if the value is integer, we use it as arguments
