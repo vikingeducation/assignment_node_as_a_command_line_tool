@@ -12,7 +12,7 @@ process.stdin.on('data', (data) => {
     console.log('Exiting the process');
     process.exit();
   } else {
-    var cmd = cp.spawn(`${ data }`, []);
+    var cmd = cp.spawn(`${ data }`);
 
     cmd.stdout.on('data', (data) => {
       console.log(`STDOUT: ${ data }`)
