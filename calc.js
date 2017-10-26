@@ -20,16 +20,12 @@ var calc = function (operation, a, b) {
   switch (operation) {
     case 'sub':
       return a - b;
-      break;
     case 'add':
       return a + b;
-      break;
     case 'mult':
       return a*b;
-      break;
     case 'div':
       return a/b;
-      break;
   }
 }
 
@@ -41,7 +37,7 @@ args.forEach( function(val, idx) {
     console.log('Explanation of how to use the calculator');
   } else if (val == '-v' || val == '--version' ) {
     console.log('1.0');
-  }
+  } // first this condition before calculating
 
   if ( isNaN( parseInt(val) ) ) {
       operation = val;
@@ -50,10 +46,11 @@ args.forEach( function(val, idx) {
       val1 = parseInt(val) ;
     } else {
       val2 = parseInt(val) ;
+      val1 = calc(operation, val1, val2);
     }
   }
 })
 
-console.log( calc(operation, val1, val2) );
+console.log( val1 );
 
-console.log(args);
+// console.log(args);
