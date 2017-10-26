@@ -1,6 +1,9 @@
 # Assignment: Node as a Command-Line Tool
 
-"First you will get started with some exercises that get you working with user input and child processes. Then you'll combine those features to create child processes from user input. Then you will work with command-line arguments by creating a calculator that allows chainable commands." - VCS
+- `basic_child_processes.js` - basic child process that simply lists the process currently running on your system.
+- `command_runner.js` - combined child processes and user input listener
+- `text_editor.js` - set up a listener for user input, `\q` - quits the listener.
+- `calc.js` - calculator which uses command-line arguments allowing also to chain math commands
 
 
 
@@ -10,6 +13,11 @@ If you have [installed node](https://nodejs.org/en/download/) on your computer, 
 
 ```
 $ node example.js
+```
+
+or as below a calculator which adds, divides, multiplies or subtracts in CLI
+```
+$ node calc.js add 5 5 mult 2
 ```
 
 
