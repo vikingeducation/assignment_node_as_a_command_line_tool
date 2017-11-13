@@ -27,15 +27,13 @@ var calcFunc={
     return "Example: node calc.js add 5 5 sub 3 will give you 7";
   }),
   '--help': (function(){
-    return "Example: node calc.js add 5 5 sub 3 will give you 7";
+    return calcFunc['-h']();
   }),
   '--version': (function(){
-    return "Version 1.0";
+    return calcFunc['-v']();
   })
 }
 
-
-console.log(process.argv);
 
 var command=process.argv[2];
 var args= process.argv.slice(3);
