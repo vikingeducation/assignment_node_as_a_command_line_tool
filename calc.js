@@ -2,14 +2,12 @@
 let argArray = process.argv.slice(2, (process.argv.length));
 let result = 0;
 let dummy = 0;
+let dummy2 = 0;
 let debug = 0;
 let selfFunction = function(argArray){
 
-process.stdin.on('data', str => {
-  str = str.trim();
 
-
-  if (argArray.length != 0) {
+  if (argArray.length != 0 && dummy2 === 0) {
   //check the first statement(only one where version/etc are valid), also takes different # of params
     switch (argArray[0]) {
       case 'add':
@@ -100,6 +98,30 @@ process.stdin.on('data', str => {
           argArray.shift();
           selfFunction(argArray);
           break;
+      case '-i':
+        dummy = 1;
+        process.stdin.resume();
+        process.stdin.setEncoding('utf8');
+
+        process.stdin.on('data', str => {
+          str = str.trim();
+          let int_result;
+          argArray = str.split(' ')
+
+          int_result = selfFunction(str.split(' '));
+          console.log(selfFunction(str.split(' ')))
+          dummy = 0;
+          dummy2 = 1;
+          console.log('DEBUG')
+          console.log(argArray)
+          console.log(result)
+          console.log(dummy)
+          console.log(dummy2)
+
+          console.log(result)
+        });
+
+        break;
       case'-v':
         console.log("1.0.0")
         dummy = 1;
