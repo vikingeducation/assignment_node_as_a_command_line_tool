@@ -28,6 +28,14 @@ if (argArray.length != 0) {
       argArray.shift();
       argArray.shift();
       break;
+    case'-v':
+	    break;
+    case '--version':
+	    break;
+    case '-h':
+	    break;
+    case '--help':
+	    break;
   }
 }
 //check next statements, applies them to results
