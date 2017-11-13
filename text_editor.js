@@ -12,8 +12,6 @@ process.stdin.on("data", function(str) {
   } 
   fs.writeFile("data/input.txt", str, (err) => {
     if (err) return console.log("error");
-    console.log("test > data/input.txt");
   });
-
 
 });
