@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 \qkjkljkjhlkjhkljhlkjh\qdsafkjasdlfkjasdflkajsdf\qzzzzzzzzzzzzzzzzzzzzzzzz\q
+=======
+qblah blah blahq See if this works[ABlah blah
+>>>>>>> 5f9a81417a85ac6cdc7ce610dc2e9975ab7b2892
