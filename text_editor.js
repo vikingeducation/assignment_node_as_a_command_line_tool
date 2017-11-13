@@ -3,6 +3,7 @@ let fs = require('fs');
 process.stdin.resume();
 process.stdin.setEncoding('utf8');
 
+
 let data = "";
 
 process.stdin.on("data", function(str) {
@@ -20,4 +21,5 @@ process.stdin.on("data", function(str) {
   };
 
   data += str; 
+
 });
