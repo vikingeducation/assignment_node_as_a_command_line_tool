@@ -5,15 +5,18 @@ process.stdin.setEncoding('utf8');
 
 process.stdin.on("data", function(str) {
   str = str.trim();
-  
+  let txt;
+    
   if (str === 'q' || str === 'quit') {
     console.log('Goodbye.');
-    process.exit();
-  } 
-  fs.writeFile("data/input.txt", str, (err) => {
-    if (err) return console.log("error");
-    console.log("test > data/input.txt");
+    if (fs.existsSync("data/input.txt")) {      fs.writeFileSync("data/input.txt", txt, (err) => {
+        if (err) return console.log("error");
+        console.log("test > data/input.txt");
   });
-
-
+  }
+    process.exit();
+  };
+    
+ txt = str;
+    
 });
