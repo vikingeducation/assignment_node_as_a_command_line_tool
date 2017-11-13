@@ -7,10 +7,15 @@ process.stdin.resume();
 process.stdin.setEncoding('utf8');
 process.stdin.on('data', str => {
   str = str.trim();
-  output += str.split(' ');
-  let arr = output.slice(1);
-  const cmd = cp.spawn(output[0], arr);
+  if (str === "q" || str === "quit") {
+		console.log("what")
+		process.exit()
+	}
+  let arr = str.split(' ');
+  console.log(arr)
+  const cmd = cp.spawn("echo", arr);
+  cmd.stdout.setEncoding('utf8');
+cmd.stdout.on('data', vals => console.log(vals));
 });
 
-process.stdout.setEncoding('utf8');
-process.stdout.on('data', vals => console.log(vals));
+
