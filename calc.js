@@ -7,9 +7,16 @@ process.stdin.setEncoding('utf8');
 process.stdin.on("data", function (str) {
     str = str.trim().split(" ");
     
+    let firstComp = calc.add(str[1], str[2]);  
+
+    let calc = new Calculator(firstComp);
+
+    str = str.slice(4);
     //let cmd = cp.spawn('calculator', str);
 
     //cmd.stdout.setEncoding('utf8');
+
+    console.log(calc.total);
 
     process.stdout.on('data', (data) => {
         console.log(data);
@@ -22,57 +29,36 @@ process.stdin.on("data", function (str) {
 
 });
 
+class Calculator {
+  constructor(total) {
+    this.total = total;
+  }
 
-let calculator = function (arr) {
-    let first_comp;
-    let total;
-    
-    let add = (a, b) => {
-        return a + b;
-    }
-    let sub = (a, b) => {
-        return a - b;
-    }
-    let div = (a, b) => {
-        return a / b;
-    }
-    let mult = (a, b) => {
-        return a * b;
-    }
-    
-    switch (arr[0]) {
+  operate(method, num) {
+     switch (method) {
         case "add":
-            first_comp = add(arr[1], arr[2]);
-            break;
+            return this.add(this.total, num);
         case "sub":
-            first_comp = sub(arr[1], arr[2]);
-            break;
+            return this.sub(this.total, num);
         case "div":
-            first_comp = div(arr[1], arr[2]);
-            break;
+            return this.div(this.total, num);
         case "mult":
-            first_comp = mult(arr[1], arr[2]);
-            break;
+            return this.mult(this.total, num);
     }
-    
-    total = first_comp;
-    
-    for (var i = 3; i < arr.length; i += 2) {
-        switch (arr[i]) {
-            case "add":
-                total = add(total, arr[i + 1]);
-                break;
-            case "sub":
-                total = sub(total, arr[i + 1]);
-                break;
-            case "div":
-                total = div(total, arr[i + 1]);
-                break;
-            case "mult":
-                total = mult(total, arr[i + 1]);
-                break;
-        }
-    }
-    
-    return total;
+  }
+
+  add(a, b) {
+    this.total = a + b;
+  }
+  sub(a, b) {
+    this.total = a - b;
+  }
+  div(a, b) {
+    this.total = a / b;
+  }
+  mult(a, b) {
+    this.total = a * b;
+  }
 }
+
+
