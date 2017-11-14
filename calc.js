@@ -7,12 +7,19 @@ process.stdin.setEncoding('utf8');
 process.stdin.on("data", function (str) {
     str = str.trim().split(" ");
     
+    // assumed add on first operation, incomplete 
     let firstComp = calc.add(str[1], str[2]);  
 
     let calc = new Calculator(firstComp);
 
     str = str.slice(4);
     //let cmd = cp.spawn('calculator', str);
+
+    let i = 4;
+    while (i < str.length) {
+      calc.operate(str[i], str[i+1]);
+      i += 2;
+    }
 
     //cmd.stdout.setEncoding('utf8');
 
