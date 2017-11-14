@@ -98,6 +98,7 @@ let selfFunction = function(argArray){
           argArray.shift();
           selfFunction(argArray);
           break;
+          /*
       case '-i':
         dummy = 1;
         process.stdin.resume();
@@ -106,6 +107,7 @@ let selfFunction = function(argArray){
         process.stdin.on('data', str => {
           str = str.trim();
           let int_result;
+          argArray = [];
           argArray = str.split(' ')
 
           int_result = selfFunction(str.split(' '));
@@ -117,11 +119,13 @@ let selfFunction = function(argArray){
           console.log(result)
           console.log(dummy)
           console.log(dummy2)
+          console.log(argArray[1])
 
           console.log(result)
         });
 
         break;
+        */
       case'-v':
         console.log("1.0.0")
         dummy = 1;
