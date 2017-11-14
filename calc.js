@@ -1,40 +1,15 @@
+//----------------------------- Command Line Calculator -------------------------------
+
+// Authors: Johann Baptista and Edwin Yung
+// Contact: baptistajohann@gmail.com
+
+// Date Started: Nov 13 2017
+// Date Complete: Nov 13 2017
+
+// -------------------------------------------------------------------------------------
+
+
 let fs = require('fs');
-let cp = require('child_process');
-
-process.stdin.resume();
-process.stdin.setEncoding('utf8');
-
-process.stdin.on("data", function (str) {
-    str = str.trim().split(" ");
-    
-    // assumed add on first operation, incomplete 
-    let firstComp = calc.add(str[1], str[2]);  
-
-    let calc = new Calculator(firstComp);
-
-    str = str.slice(4);
-    //let cmd = cp.spawn('calculator', str);
-
-    let i = 4;
-    while (i < str.length) {
-      calc.operate(str[i], str[i+1]);
-      i += 2;
-    }
-
-    //cmd.stdout.setEncoding('utf8');
-
-    console.log(calc.total);
-
-    process.stdout.on('data', (data) => {
-        console.log(data);
-    });
-
-    if (str[0] === '\\q' || str[0] === '\\quit') {
-        console.log('Goodbye.');
-        process.exit();
-    };
-
-});
 
 class Calculator {
   constructor(total) {
@@ -42,30 +17,74 @@ class Calculator {
   }
 
   operate(method, num) {
-     switch (method) {
-        case "add":
-            return this.add(this.total, num);
-        case "sub":
-            return this.sub(this.total, num);
-        case "div":
-            return this.div(this.total, num);
-        case "mult":
-            return this.mult(this.total, num);
-    }
+    this[method](num);
   }
 
-  add(a, b) {
-    this.total = a + b;
+  add(b) {
+    this.total = this.total + b;
   }
-  sub(a, b) {
-    this.total = a - b;
+  sub(b) {
+    this.total = this.total - b;
   }
-  div(a, b) {
-    this.total = a / b;
+  div(b) {
+    this.total = this.total / b;
   }
-  mult(a, b) {
-    this.total = a * b;
+  mult(b) {
+    this.total = this.total * b;
   }
 }
 
+// Remove 'node' and 'calc.js' from the arguments array
+str = process.argv.slice(2);
 
+// If user asks for version information
+if (str[0] === "-v" || str[0] === "--version") {
+
+  fs.readFile("package.json", "utf8", (err, data) => {
+    if (err) throw err;
+    console.log(JSON.parse(data).version);
+    process.exit()
+  }); 
+
+// If user asks for help
+} else if (str[0] === "-h" || str[0] === "--help") { 
+
+  console.log(`
+  -------------- How to use --------------- \n
+  Type -v or --version for version number \n
+  Operators like 'add', 'sub', 'div', and 
+  'mult' should be used as such: 
+
+            'operator num1 num2'
+
+  E.g. 'add 2 2' # => 4
+       'sub 5 3' # => 2 \n
+  You can also chain commands
+  E.g. 'sub 9 5 add 2' # => 2
+  `); 
+
+// If user requests a computation
+} else {
+
+  // Switch first and second element of arguments array
+  // so that if original array was ['add', 2, 3, 'sub', 1]
+  // new array is '[2, 'add', '3', 'sub', '1']
+
+  [str[0], str[1]] = [str[1], str[0]];
+
+  // Instantiate new calculator, with initial total equal 
+  // to first number typed by user
+
+  let calc = new Calculator( parseFloat(str.shift()) );
+
+  // Iterate through arguments array, two at a time, using
+  // calculator object to maintain state
+
+  for (let i = 0; i < str.length; i+=2) {
+    calc.operate(str[i], parseFloat(str[i+1]));
+  }
+
+  // Log calculator total
+
+  console.log(calc.total);
+}
