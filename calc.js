@@ -23,48 +23,41 @@ Repeat.
 
 If string === -v || --verson : return version string.
 
-if string === -h || --help : return directions.*/
+if string === -h || --help : return directions .*/
 
-process.stdin.resume();
-process.stdin.setEncoding('utf8');
-let bob = process.argv.slice(2);
+// process.stdin.resume();
+// process.stdin.setEncoding('utf8');
+// let initialArgs = process.argv.slice(2);
 
 let runyet = false;
 
 let result = 0;
 
-let george = (str, a, b) => {
-  if (runyet) {
-    str = bob.shift();
-    b = bob.shift();
-  } else {
-    str = bob.shift();
-    a = bob.shift();
-    b = bob.shift();
-  }
-
-  switch (str) {
-    case 'add':
-      result = a + b;
-      counter += 1;
-      break;
-    case 'sub':
-      result = a - b;
-      counter += 1;
-      break;
-    case 'div':
-      result = a / b;
-      counter += 1;
-      break;
-    case 'mult':
-      result = a * b;
-      counter += 1;
-    default:
-      console.log('Invalid math input');
-  }
-
-  process.stdout.setEncoding('utf8');
-  process.stdout.on('data', result => console.log(result));
+const calculator = {
+  add: (a, b) => a + b,
+  sub: (a, b) => a - b,
+  mult: (a, b) => a * b,
+  div: (a, b) => a / b,
+  pow: (a, b) => a ** b
 };
 
-george();
+const argPrep = array => {
+  let funcArray = [];
+  let numbArray = [];
+  array.forEach(val => {
+    if (Number(val)) {
+      numbArray.push(val);
+    } else {
+      funcArray.push(val);
+    }
+  });
+  let sum = numbArray.reduce((a, b) => {
+    return calculator[funcArray.shift()](a, b);
+  });
+  return sum;
+};
+
+// process.stdout.setEncoding('utf8');
+// process.stdout.on('data', result => console.log(result));
+
+console.log(argPrep(['pow', '5', '2', 'mult', '7']));
