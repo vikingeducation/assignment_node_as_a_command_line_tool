@@ -29,21 +29,21 @@ process.stdin.resume();
 process.stdin.setEncoding('utf8');
 let bob = process.argv.slice(2);
 
-let counter = 0;
+let runyet = false;
 
 let result = 0;
 
 let george = (str, a, b) => {
-  if (counter === 0) {
-    console.log(bob.unshift());
-    a = bob.unshift();
-    b = bob.unshift();
-  } else if (bob.length > 0 && counter > 0) {
-    str = bob.unshift();
-    b = bob.unshift();
+  if (runyet) {
+    str = bob.shift();
+    b = bob.shift();
+  } else {
+    str = bob.shift();
+    a = bob.shift();
+    b = bob.shift();
   }
 
-  switch (bob[2]) {
+  switch (str) {
     case 'add':
       result = a + b;
       counter += 1;
@@ -62,21 +62,7 @@ let george = (str, a, b) => {
     default:
       console.log('Invalid math input');
   }
-  switch (bob[2]) {
-    case 'add':
-      result += b;
-      break;
-    case 'sub':
-      result -= b;
-      break;
-    case 'div':
-      result /= b;
-      break;
-    case 'mult':
-      result *= b;
-    default:
-      console.log('Invalid math input');
-  }
+
   process.stdout.setEncoding('utf8');
   process.stdout.on('data', result => console.log(result));
 };
