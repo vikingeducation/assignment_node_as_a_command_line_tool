@@ -28,17 +28,17 @@ if string === -h || --help : return directions .*/
 // process.stdin.resume();
 // process.stdin.setEncoding('utf8');
 // let initialArgs = process.argv.slice(2);
-
-let runyet = false;
-
-let result = 0;
+const initialArgs = process.argv.slice(2);
 
 const calculator = {
   add: (a, b) => a + b,
   sub: (a, b) => a - b,
   mult: (a, b) => a * b,
   div: (a, b) => a / b,
-  pow: (a, b) => a ** b
+  pow: (a, b) => a ** b,
+  help:
+    'USE: enter an operation follow by the two numbers to perfom the operation on. Operations can be chained by entering an additional operator followed by one additional number to be operated on. Chained operations are performed on the resulting value of the initial operation. Operators: add[addition], sub[subtract], mult[multiply], div[divide], pow[exponential]',
+  version: 'VERSION: 1.0.0'
 };
 
 const argPrep = array => {
@@ -46,18 +46,37 @@ const argPrep = array => {
   let numbArray = [];
   array.forEach(val => {
     if (Number(val)) {
-      numbArray.push(val);
+      numbArray.push(Number(val));
     } else {
       funcArray.push(val);
     }
   });
-  let sum = numbArray.reduce((a, b) => {
-    return calculator[funcArray.shift()](a, b);
-  });
-  return sum;
+  return [numbArray, funcArray];
 };
 
-// process.stdout.setEncoding('utf8');
-// process.stdout.on('data', result => console.log(result));
+const sum = array => {
+  let result = array[0].reduce((a, b) => {
+    return calculator[array[1].shift()](a, b);
+  });
+  return result;
+};
 
-console.log(argPrep(['pow', '5', '2', 'mult', '7']));
+const runCalc = initialArray => {
+  let arrays = argPrep(initialArray);
+  console.log(sum(arrays));
+  finish();
+};
+
+const finish = () => process.exit();
+
+const inputCheck = input => {
+  if (input[0] === '-h' || input[0] === '--help') {
+    console.log(calculator.help);
+  } else if (input[0] === '-v' || input[0] === '--version') {
+    console.log(calculator.version);
+  } else {
+    runCalc(initialArgs);
+  }
+};
+
+inputCheck(initialArgs);
