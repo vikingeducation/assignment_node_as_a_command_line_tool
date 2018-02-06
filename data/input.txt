@@ -1,0 +1,2 @@
+sample input from CLI
+sample input 2
